@@ -1,16 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-type ValueType = string | number | readonly string[] | undefined;
-
-interface InputProps {
-  id: string;
-  type: string;
-  tagText: string;
-  value: ValueType;
-  onChange: (value: ValueType) => void;
-}
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -42,6 +32,16 @@ const StyledInput = styled.input`
     background-color: ${(props) => props.theme.background};
   }
 `;
+
+type ValueType = string | number | readonly string[] | undefined;
+
+interface InputProps {
+  id: string;
+  type: string;
+  tagText?: string;
+  value: ValueType;
+  onChange: (value: ValueType) => void;
+}
 
 export default function Input(props: InputProps) {
   const { id, type, tagText, value, onChange } = props;
