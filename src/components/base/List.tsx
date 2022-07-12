@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 interface StyledULProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   horizontal?: boolean;
 }
 

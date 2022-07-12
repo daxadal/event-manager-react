@@ -2,13 +2,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 interface ContainerProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   text: boolean;
-  // eslint-disable-next-line react/no-unused-prop-types
   outlined: boolean;
 }
 
-type ButtonProps = React.PropsWithChildren & ContainerProps;
+interface ButtonProps extends React.PropsWithChildren, ContainerProps {}
 
 const Container = styled.button<ContainerProps>`
   display: flex;
