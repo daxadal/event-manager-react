@@ -6,8 +6,6 @@ interface ContainerProps {
   outlined: boolean;
 }
 
-interface ButtonProps extends React.PropsWithChildren, ContainerProps {}
-
 const Container = styled.button<ContainerProps>`
   display: flex;
   align-items: center;
@@ -60,11 +58,15 @@ const Container = styled.button<ContainerProps>`
     `}
 `;
 
+interface ButtonProps extends React.PropsWithChildren, ContainerProps {
+  as: "a" | "button" | "label";
+}
+
 export default function Button(props: ButtonProps) {
-  const { children, outlined, text } = props;
+  const { as, children, outlined, text } = props;
 
   return (
-    <Container outlined={outlined} text={text}>
+    <Container as={as} outlined={outlined} text={text}>
       {children}
     </Container>
   );
