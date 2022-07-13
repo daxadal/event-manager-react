@@ -12,8 +12,8 @@ const StyledHeader = styled.header<HeaderProps>`
   height: ${(props) => props.height}px;
   width: 100%;
   overflow: hidden;
-  background-color: var(--neutral-foreground);
-  border-bottom: 1px solid var(--neutral-detail);
+  background-color: ${(props) => props.theme.foreground};
+  border-bottom: 1px solid ${(props) => props.theme.border};
 `;
 
 const StyledNav = styled.nav`
