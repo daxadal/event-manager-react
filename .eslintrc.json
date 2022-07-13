@@ -21,6 +21,7 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-no-bind": [
       "error",
@@ -30,6 +31,7 @@
     "react/require-default-props": "off",
     "no-use-before-define": "off",
     "no-nested-ternary": "off",
+    "no-shadow": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
