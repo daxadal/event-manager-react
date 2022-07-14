@@ -1,31 +1,31 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
   },
-  "extends": [
+  extends: [
     "eslint:recommended",
     "plugin:react/recommended",
     "airbnb",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
-  "rules": {
+  plugins: ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  rules: {
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-no-bind": [
       "error",
-      { "allowArrowFunctions": true, "allowFunctions": true }
+      { allowArrowFunctions: true, allowFunctions: true },
     ],
     "prettier/prettier": "warn",
     "react/require-default-props": "off",
@@ -36,22 +36,22 @@ module.exports = {
       "error",
       "ignorePackages",
       {
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".jsx", ".tsx"] }]
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        ts: "never",
+        tsx: "never",
       },
-      "typescript": {
-        "alwaysTryTypes": true,
-        "project": "."
-      }
-    }
-  }
-}
+    ],
+    "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        paths: ["src"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+      typescript: {
+        alwaysTryTypes: true,
+        project: ".",
+      },
+    },
+  },
+};
