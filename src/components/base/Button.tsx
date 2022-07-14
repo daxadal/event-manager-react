@@ -2,8 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 interface ContainerProps {
-  text: boolean;
-  outlined: boolean;
+  text?: boolean;
+  outlined?: boolean;
 }
 
 const Container = styled.button<ContainerProps>`
@@ -59,14 +59,20 @@ const Container = styled.button<ContainerProps>`
 `;
 
 interface ButtonProps extends React.PropsWithChildren, ContainerProps {
-  as: "a" | "button" | "label";
+  as?: "a" | "button" | "label";
+  onClick: () => void;
 }
 
 export default function Button(props: ButtonProps) {
-  const { as, children, outlined, text } = props;
+  const { as, children, outlined, text, onClick } = props;
 
   return (
-    <Container as={as} outlined={outlined} text={text}>
+    <Container
+      as={as || "button"}
+      outlined={outlined}
+      text={text}
+      onClick={onClick}
+    >
       {children}
     </Container>
   );
