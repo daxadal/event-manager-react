@@ -48,6 +48,9 @@ module.exports = {
       files: ["**/*.stories.*"],
       rules: {
         "import/no-anonymous-default-export": "off",
+        "import/no-extraneous-dependencies": "off",
+        "react/function-component-definition": "off",
+        "react/jsx-props-no-spreading": "off",
       },
     },
   ],
