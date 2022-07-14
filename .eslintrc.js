@@ -10,6 +10,7 @@ module.exports = {
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "plugin:storybook/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -42,6 +43,14 @@ module.exports = {
     ],
     "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],
   },
+  overrides: [
+    {
+      files: ["**/*.stories.*"],
+      rules: {
+        "import/no-anonymous-default-export": "off",
+      },
+    },
+  ],
   settings: {
     "import/resolver": {
       node: {
