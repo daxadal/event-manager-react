@@ -9,7 +9,7 @@ export default {
   args: {
     id: "story-selector",
   },
-  argTypes: { onChange: { action: "onInput" } },
+  argTypes: { onChange: { action: "onChange" } },
 } as ComponentMeta<typeof Selector>;
 
 const Template: ComponentStory<typeof Selector> = (args) => (
