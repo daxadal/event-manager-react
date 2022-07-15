@@ -40,11 +40,12 @@ interface InputProps {
   type: string;
   tagText?: string;
   value: ValueType;
+  placeholder: string;
   onChange: (value: ValueType) => void;
 }
 
 export default function Input(props: InputProps) {
-  const { id, type, tagText, value, onChange } = props;
+  const { id, type, tagText, value, placeholder, onChange } = props;
 
   return (
     <Wrapper>
@@ -58,6 +59,7 @@ export default function Input(props: InputProps) {
         id={id}
         type={type}
         value={value}
+        placeholder={placeholder}
         onInput={(e) => onChange((e.target as HTMLInputElement).value)}
       />
     </Wrapper>
