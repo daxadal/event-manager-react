@@ -40,24 +40,21 @@ interface InputProps {
   type: string;
   tagText?: string;
   value: ValueType;
+  placeholder: string;
   onChange: (value: ValueType) => void;
 }
 
 export default function Input(props: InputProps) {
-  const { id, type, tagText, value, onChange } = props;
+  const { id, type, tagText, value, placeholder, onChange } = props;
 
   return (
     <Wrapper>
-      <StyledLabel
-        style={tagText ? undefined : { display: "hidden" }}
-        htmlFor={id}
-      >
-        {tagText}
-      </StyledLabel>
+      {tagText && <StyledLabel htmlFor={id}>{tagText}</StyledLabel>}
       <StyledInput
         id={id}
         type={type}
         value={value}
+        placeholder={placeholder}
         onInput={(e) => onChange((e.target as HTMLInputElement).value)}
       />
     </Wrapper>

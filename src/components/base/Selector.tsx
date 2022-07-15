@@ -46,19 +46,15 @@ export default function Input(props: SelectorProps) {
 
   return (
     <Wrapper>
-      <StyledLabel
-        style={tagText ? undefined : { display: "hidden" }}
-        htmlFor={id}
-      >
-        {tagText}
-      </StyledLabel>
+      {tagText && <StyledLabel htmlFor={id}>{tagText}</StyledLabel>}
       <StyledSelector
         id={id}
         multiple={Boolean(multiple)}
         value={value}
         onInput={(e) => onChange((e.target as HTMLSelectElement).value)}
-      />
-      {children}
+      >
+        {children}
+      </StyledSelector>
     </Wrapper>
   );
 }

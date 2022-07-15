@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 interface DividerProps {
-  vertical: boolean;
+  vertical?: boolean;
 }
 
 const StyledDiv = styled.div<DividerProps>`
