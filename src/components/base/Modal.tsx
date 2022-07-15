@@ -62,24 +62,22 @@ const ModalContent = styled.div`
 const ModalFooter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-content: center;
 
   padding: 16px 32px;
-  gap: 160px;
-  width: 100%;
 `;
 
 const StyledButton = styled(Button)`
   flex: 1 0 0;
 `;
 
-interface ModalAction {
+export interface ModalAction {
   text: string;
   onClick: () => void;
 }
 
-interface ModalProps extends React.PropsWithChildren {
+interface ModalProps {
   closeOnClickAway: boolean;
   hasCloseButton: boolean;
   onClose: () => void;
