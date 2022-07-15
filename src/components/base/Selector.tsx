@@ -57,8 +57,9 @@ export default function Input(props: SelectorProps) {
         multiple={Boolean(multiple)}
         value={value}
         onInput={(e) => onChange((e.target as HTMLSelectElement).value)}
-      />
-      {children}
+      >
+        {children}
+      </StyledSelector>
     </Wrapper>
   );
 }
