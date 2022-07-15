@@ -6,20 +6,7 @@ export enum Positions {
   R = "right",
 }
 
-interface StylingProps {
-  isShowing: boolean;
-  hasMask: boolean;
-
-  width: number;
-  topOffset: number;
-
-  placement: string;
-}
-
-const Mask = styled.div<StylingProps>`
-  display: ${(props) =>
-    props.isShowing && props.hasMask ? undefined : "hidden"};
-
+const Mask = styled.div<{ topOffset: number }>`
   position: fixed;
   overflow: hidden;
   left: 0;
@@ -28,13 +15,12 @@ const Mask = styled.div<StylingProps>`
   box-sizing: border-box;
 
   width: 100%;
-  height: 100%;
+  height: calc(100% - ${(props) => props.topOffset}px);
 
-  background-color: rgba(black, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
 `;
 
-const Menu = styled.div<StylingProps>`
-  display: ${(props) => (props.isShowing ? "flex" : "hidden")};
+const Menu = styled.div<MenuProps>`
   flex-direction: column;
 
   position: fixed;
@@ -56,7 +42,7 @@ const Menu = styled.div<StylingProps>`
 
   max-width: 100%;
   width: ${(props) => props.width}px;
-  height: 100%;
+  height: calc(100% - ${(props) => props.topOffset}px);
 
   transition: transform 0.2s ease-in-out;
   transition-delay: 1s;
@@ -65,18 +51,19 @@ const Menu = styled.div<StylingProps>`
   border: 1px solid ${(props) => props.theme.border};
 `;
 
-interface DrawerProps extends StylingProps, React.PropsWithChildren {
-  closeOnClickAway: boolean;
+interface MenuProps {
+  width: number;
+  topOffset: number;
 
+  placement: string;
+}
+
+interface DrawerProps extends MenuProps, React.PropsWithChildren {
   onClose: () => void;
 }
 
 export default function Drawer(props: DrawerProps) {
   const {
-    closeOnClickAway,
-    isShowing,
-    hasMask,
-
     width,
     topOffset,
     placement,
@@ -86,30 +73,10 @@ export default function Drawer(props: DrawerProps) {
     children,
   } = props;
 
-  function onClickOnMask() {
-    if (closeOnClickAway) {
-      onClose();
-    }
-  }
-
   return (
     <aside>
-      <Mask
-        tabIndex={0}
-        isShowing={isShowing}
-        hasMask={hasMask}
-        width={width}
-        topOffset={topOffset}
-        placement={placement}
-        onClick={onClickOnMask}
-      />
-      <Menu
-        isShowing={isShowing}
-        hasMask={hasMask}
-        width={width}
-        topOffset={topOffset}
-        placement={placement}
-      >
+      <Mask tabIndex={0} topOffset={topOffset} onClick={onClose} />
+      <Menu width={width} topOffset={topOffset} placement={placement}>
         {children}
       </Menu>
     </aside>
