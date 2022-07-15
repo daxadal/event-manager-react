@@ -49,12 +49,7 @@ export default function Input(props: InputProps) {
 
   return (
     <Wrapper>
-      <StyledLabel
-        style={tagText ? undefined : { display: "hidden" }}
-        htmlFor={id}
-      >
-        {tagText}
-      </StyledLabel>
+      {tagText && <StyledLabel htmlFor={id}>{tagText}</StyledLabel>}
       <StyledInput
         id={id}
         type={type}
