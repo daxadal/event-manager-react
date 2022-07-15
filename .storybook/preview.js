@@ -24,7 +24,6 @@ export const globalTypes = {
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
-    default: "neutral",
     values: [
       {
         name: "neutral",
