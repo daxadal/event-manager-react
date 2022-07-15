@@ -11,8 +11,7 @@ export default {
 
 const Template: ComponentStory<typeof Toolbar> = (args) => (
   <Toolbar {...args}>
-    <button type="button">Button</button>
-    <h2>Title</h2>
+    <h1 style={{ textAlign: "center", width: "100%" }}>Title</h1>
   </Toolbar>
 );
 
