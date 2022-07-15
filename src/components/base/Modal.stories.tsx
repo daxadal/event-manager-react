@@ -16,22 +16,17 @@ export default {
     imageSrc: success,
     imageAlt: "Success",
     content: "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-    actions: [{ text: "Button 1", onClick: () => null }],
+    actions: new Array(1).fill(undefined),
   },
   argTypes: {
     actions: {
-      options: ["1 Option", "2 Options", "3 Options"],
+      options: ["1 Option", "2 Options", "3 Options", "4 Options", "5 Options"],
       mapping: {
-        "1 Option": [{ text: "Button 1", onClick: () => null }],
-        "2 Options": [
-          { text: "Button 1", onClick: () => null },
-          { text: "Button 2", onClick: () => null },
-        ],
-        "3 Options": [
-          { text: "Button 1", onClick: () => null },
-          { text: "Button 2", onClick: () => null },
-          { text: "Button 3", onClick: () => null },
-        ],
+        "1 Option": new Array(1).fill(undefined),
+        "2 Options": new Array(2).fill(undefined),
+        "3 Options": new Array(3).fill(undefined),
+        "4 Options": new Array(4).fill(undefined),
+        "5 Options": new Array(5).fill(undefined),
       },
     },
   },
@@ -84,7 +79,7 @@ TwoOptions.args = {
   closeOnClickAway: false,
   hasCloseButton: false,
 
-  numberOfActions: 2,
+  actions: "2 Options",
 };
 
 export const ThreeOptions = Template.bind({});
@@ -92,5 +87,5 @@ ThreeOptions.args = {
   closeOnClickAway: false,
   hasCloseButton: false,
 
-  numberOfActions: 3,
+  actions: "3 Options",
 };
