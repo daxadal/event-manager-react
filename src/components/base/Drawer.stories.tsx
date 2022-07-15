@@ -11,7 +11,7 @@ export default {
     width: 560,
     topOffset: 80,
   },
-  argTypes: { placement: { options: [...Object.values(Positions)] } },
+  argTypes: { position: { options: [...Object.values(Positions)] } },
 } as ComponentMeta<typeof Drawer>;
 
 const Template: ComponentStory<typeof Drawer> = (args) => {
@@ -38,10 +38,10 @@ const Template: ComponentStory<typeof Drawer> = (args) => {
 
 export const LeftDrawer = Template.bind({});
 LeftDrawer.args = {
-  placement: Positions.L,
+  position: Positions.L,
 };
 
 export const RightDrawer = Template.bind({});
 RightDrawer.args = {
-  placement: Positions.R,
+  position: Positions.R,
 };

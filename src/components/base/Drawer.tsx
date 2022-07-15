@@ -27,7 +27,7 @@ const Menu = styled.div<MenuProps>`
   overflow: auto;
   top: ${(props) => props.topOffset}px;
   ${(props) =>
-    props.placement === Positions.L
+    props.position === Positions.L
       ? css`
           left: 0;
         `
@@ -55,7 +55,7 @@ interface MenuProps {
   width: number;
   topOffset: number;
 
-  placement: string;
+  position: string;
 }
 
 interface DrawerProps extends MenuProps, React.PropsWithChildren {
@@ -66,7 +66,7 @@ export default function Drawer(props: DrawerProps) {
   const {
     width,
     topOffset,
-    placement,
+    position,
 
     onClose,
 
@@ -76,7 +76,7 @@ export default function Drawer(props: DrawerProps) {
   return (
     <aside>
       <Mask tabIndex={0} topOffset={topOffset} onClick={onClose} />
-      <Menu width={width} topOffset={topOffset} placement={placement}>
+      <Menu width={width} topOffset={topOffset} position={position}>
         {children}
       </Menu>
     </aside>
