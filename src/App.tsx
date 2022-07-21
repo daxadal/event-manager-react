@@ -1,4 +1,4 @@
-import React, { StrictMode, useState } from "react";
+import React, { createContext, StrictMode, useReducer, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 
@@ -6,12 +6,14 @@ import GlobalStyle from "./GlobalStyle";
 import { darkTheme, lightTheme } from "./themes";
 
 import Toolbar from "./components/base/Toolbar";
+import PalletteSelector, { Pallettes } from "./components/PalletteSelector";
+import InformationModal from "./components/InformationModal";
+import ConfirmationModal from "./components/ConfirmationModal";
 
 import { ReactComponent as ThreeBarsIcon } from "./assets/three-bars.svg";
 
-import PalletteSelector, { Pallettes } from "./components/PalletteSelector";
-
 import { checkEnumExhausted } from "./services/constants-types";
+import modalReducer from "./reducers/modal-reducer";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -43,6 +45,8 @@ const ContentPage = styled.div<{ marginTop: number }>`
   padding: 16px;
 `;
 
+const ModalContext = createContext({});
+
 export default function App() {
   const toolbarHeight = 80;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -62,6 +66,11 @@ export default function App() {
     }
   };
 
+  const [modalConfiguration, setModalConfiguration] = useReducer(modalReducer, {
+    showInfoModal: false,
+    showConfirmModal: false,
+  });
+
   return (
     <StrictMode>
       <ThemeProvider theme={getThemeFromPallette(pallette)}>
@@ -78,7 +87,26 @@ export default function App() {
           </ToolbarRight>
         </AppToolbar>
 
-        <ContentPage marginTop={toolbarHeight}>{/* TODO */}</ContentPage>
+        <ContentPage marginTop={toolbarHeight}>
+          <ModalContext.Provider value={setModalConfiguration}>
+            {/* TODO */}
+          </ModalContext.Provider>
+        </ContentPage>
+
+        {modalConfiguration.showInfoModal && (
+          <InformationModal
+            type={modalConfiguration.modalType}
+            message={modalConfiguration.modalMessage}
+            onClose={modalConfiguration.onModalClose}
+          />
+        )}
+        {modalConfiguration.showConfirmModal && (
+          <ConfirmationModal
+            message={modalConfiguration.modalMessage}
+            onCancel={modalConfiguration.onModalCancel}
+            onConfirm={modalConfiguration.onModalConfirm}
+          />
+        )}
       </ThemeProvider>
     </StrictMode>
   );
