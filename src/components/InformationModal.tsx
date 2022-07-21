@@ -4,6 +4,7 @@ import Modal from "./base/Modal";
 
 import successPng from "../assets/success.png";
 import errorPng from "../assets/error.png";
+import infoSvg from "../assets/info.svg";
 
 import { checkEnumExhausted } from "../services/constants-types";
 
@@ -27,7 +28,7 @@ const getTitleAndImageFromType = (type: ModalType) => {
     case ModalType.ERROR:
       return { title: "Error", imageSrc: errorPng, imageAlt: "Error" };
     case ModalType.INFO:
-      return { title: "Info", imageSrc: successPng, imageAlt: "Info" };
+      return { title: "Info", imageSrc: infoSvg, imageAlt: "Info" };
     default:
       return checkEnumExhausted(type);
   }
