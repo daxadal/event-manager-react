@@ -11,7 +11,7 @@ import { ReactComponent as ThreeBarsIcon } from "./assets/three-bars.svg";
 
 import PalletteSelector, { Pallettes } from "./components/PalletteSelector";
 
-import { checkEnumExhausted } from "./constants-types";
+import { checkEnumExhausted } from "./services/constants-types";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;

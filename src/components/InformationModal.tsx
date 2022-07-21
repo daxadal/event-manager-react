@@ -5,7 +5,7 @@ import Modal from "./base/Modal";
 import successPng from "../assets/success.png";
 import errorPng from "../assets/error.png";
 
-import { checkEnumExhausted } from "../constants-types";
+import { checkEnumExhausted } from "../services/constants-types";
 
 export enum ModalType {
   SUCCESS = "success",
