@@ -3,11 +3,11 @@ import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 
 import GlobalStyle from "./GlobalStyle";
-import { lightTheme } from "./themes";
+import { darkTheme, lightTheme } from "./themes";
 
 import Toolbar from "./components/base/Toolbar";
 
-import threeBarsSvg from "./assets/three-bars.svg";
+import { ReactComponent as ThreeBarsIcon } from "./assets/three-bars.svg";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -41,13 +41,13 @@ export default function App() {
   const toolbarHeight = 80;
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Normalize />
       <GlobalStyle />
 
       <AppToolbar height={toolbarHeight}>
         <ToolbarLeft>
-          <img src={threeBarsSvg} alt="Menu" />
+          <ThreeBarsIcon />
         </ToolbarLeft>
         <h1>Event Manager React</h1>
         <ToolbarRight />
