@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 
 import GlobalStyle from "./GlobalStyle";
-import { lightTheme } from "./themes";
+import { darkTheme, lightTheme } from "./themes";
 
 import Toolbar from "./components/base/Toolbar";
 
 import { ReactComponent as ThreeBarsIcon } from "./assets/three-bars.svg";
+
+import PalletteSelector, { Pallettes } from "./components/PalletteSelector";
+
+import { checkEnumExhausted } from "./constants-types";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -41,9 +45,25 @@ const ContentPage = styled.div<{ marginTop: number }>`
 
 export default function App() {
   const toolbarHeight = 80;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const [pallette, setPallette] = useState(Pallettes.DEFAULT);
+
+  const getThemeFromPallette = (newPallette: Pallettes) => {
+    switch (newPallette) {
+      case Pallettes.LIGHT:
+        return lightTheme;
+      case Pallettes.DARK:
+        return darkTheme;
+      case Pallettes.DEFAULT:
+        return prefersDark ? darkTheme : lightTheme;
+      default:
+        return checkEnumExhausted(newPallette);
+    }
+  };
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={getThemeFromPallette(pallette)}>
       <Normalize />
       <GlobalStyle />
 
@@ -52,7 +72,9 @@ export default function App() {
           <ThreeBarsIcon />
         </ToolbarLeft>
         <h1>Event Manager React</h1>
-        <ToolbarRight />
+        <ToolbarRight>
+          <PalletteSelector value={pallette} onChange={setPallette} />
+        </ToolbarRight>
       </AppToolbar>
 
       <ContentPage marginTop={toolbarHeight}>{/* TODO */}</ContentPage>
