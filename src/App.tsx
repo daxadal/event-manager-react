@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { StrictMode, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 
@@ -63,21 +63,23 @@ export default function App() {
   };
 
   return (
-    <ThemeProvider theme={getThemeFromPallette(pallette)}>
-      <Normalize />
-      <GlobalStyle />
+    <StrictMode>
+      <ThemeProvider theme={getThemeFromPallette(pallette)}>
+        <Normalize />
+        <GlobalStyle />
 
-      <AppToolbar height={toolbarHeight}>
-        <ToolbarLeft>
-          <ThreeBarsIcon />
-        </ToolbarLeft>
-        <h1>Event Manager React</h1>
-        <ToolbarRight>
-          <PalletteSelector value={pallette} onChange={setPallette} />
-        </ToolbarRight>
-      </AppToolbar>
+        <AppToolbar height={toolbarHeight}>
+          <ToolbarLeft>
+            <ThreeBarsIcon />
+          </ToolbarLeft>
+          <h1>Event Manager React</h1>
+          <ToolbarRight>
+            <PalletteSelector value={pallette} onChange={setPallette} />
+          </ToolbarRight>
+        </AppToolbar>
 
-      <ContentPage marginTop={toolbarHeight}>{/* TODO */}</ContentPage>
-    </ThemeProvider>
+        <ContentPage marginTop={toolbarHeight}>{/* TODO */}</ContentPage>
+      </ThemeProvider>
+    </StrictMode>
   );
 }
