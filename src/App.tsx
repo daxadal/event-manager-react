@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 
 import GlobalStyle from "./GlobalStyle";
-import { darkTheme, lightTheme } from "./themes";
+import { lightTheme } from "./themes";
 
 import Toolbar from "./components/base/Toolbar";
 
@@ -41,7 +41,7 @@ export default function App() {
   const toolbarHeight = 80;
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={lightTheme}>
       <Normalize />
       <GlobalStyle />
 
