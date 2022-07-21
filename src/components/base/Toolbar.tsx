@@ -28,7 +28,7 @@ const StyledNav = styled.nav`
   flex-wrap: wrap;
   align-items: center;
 
-  padding: 16px;
+  padding: 0px 16px;
   width: 100%;
 `;
 
