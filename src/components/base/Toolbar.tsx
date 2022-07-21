@@ -23,22 +23,22 @@ const StyledHeader = styled.header<HeaderProps>`
 const StyledNav = styled.nav`
   box-sizing: border-box;
   height: 100%;
+  width: 100%;
 
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-
-  padding: 0px 16px;
-  width: 100%;
 `;
 
-interface ToolbarProps extends HeaderProps, React.PropsWithChildren {}
+interface ToolbarProps extends HeaderProps, React.PropsWithChildren {
+  className?: string;
+}
 
 export default function Toolbar(props: ToolbarProps) {
-  const { height, children } = props;
+  const { className, height, children } = props;
   return (
     <StyledHeader height={height}>
-      <StyledNav>{children}</StyledNav>
+      <StyledNav className={className}>{children}</StyledNav>
     </StyledHeader>
   );
 }

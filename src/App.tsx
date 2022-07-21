@@ -12,6 +12,8 @@ import { ReactComponent as ThreeBarsIcon } from "./assets/three-bars.svg";
 const AppToolbar = styled(Toolbar)`
   display: flex;
   flex-direction: row;
+
+  padding: 0px 16px;
 `;
 
 const ToolbarLeft = styled.div`
