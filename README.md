@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Event Manager (React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_(This project is still a work in progress.
+Functionalities might be missing or bugs might be present)_
 
-## Available Scripts
+Event Manager allows you to manage your upcoming events, either create your own or subscribe to events from other users.
+No login is required to take a look at available events, but the events you will see may be more limited.
+Login is required to create, update or delete an event, or to subscribe to any event from other users.
+A notification will be sent to you via socket 24 hours before the event starts, to remind you of it.
 
-In the project directory, you can run:
+# Repositories
 
-### `npm start`
+- Main repo: https://github.com/daxadal/event-manager-react
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Availability
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+_(This server is not currently being served on the Internet)_
 
-### `npm test`
+# Previous steps
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+_This app needs to be connected to the [Event Manager (API)](https://github.com/daxadal/event-manager) project.
+Check its [availability](https://github.com/daxadal/event-manager#availability) beforehand, or execute it locally._
 
-### `npm run build`
+Modify the `.env` with the server URL.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Installation and execution
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run the app, first you have to install the dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm ci
+```
 
-### `npm run eject`
+The app can be started using **one** of the following commands:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm run serve # Hot-reloads for development
+npm run build # Minifies for production
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+By default, the app is available at `http://localhost:8080`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Lint
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Project can be linted using the following command:
 
-## Learn More
+```bash
+npm run lint
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Storybook
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+A [Storybook](https://storybook.js.org/) of the project components can be started using the following command:
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm run storybook # Hot-reloads for development
+npm run build-storybook # Minifies for production
+```
