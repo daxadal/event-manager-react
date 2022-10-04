@@ -1,6 +1,7 @@
 import React, { createContext, StrictMode, useReducer, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
+import { RouterProvider } from "react-router-dom";
 
 import GlobalStyle from "./GlobalStyle";
 import { darkTheme, lightTheme } from "./themes";
@@ -12,6 +13,7 @@ import ConfirmationModal from "./components/ConfirmationModal";
 
 import { ReactComponent as ThreeBarsIcon } from "./assets/three-bars.svg";
 
+import router from "./services/router";
 import { checkEnumExhausted } from "./services/constants-types";
 import modalReducer from "./reducers/modal-reducer";
 
@@ -89,6 +91,7 @@ export default function App() {
 
         <ContentPage marginTop={toolbarHeight}>
           <ModalContext.Provider value={setModalConfiguration}>
+            <RouterProvider router={router} />
             {/* TODO */}
           </ModalContext.Provider>
         </ContentPage>
