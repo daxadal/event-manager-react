@@ -54,6 +54,12 @@ const CloseButton = styled.span`
   cursor: pointer;
 `;
 
+const ModalImage = styled.img`
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+`;
+
 const ModalContent = styled.div`
   background-color: ${(props) => props.theme.background};
   padding: 16px 32px;
@@ -123,7 +129,7 @@ export default function Modal(props: ModalProps) {
             </ModalHeader>
 
             <ModalContent>
-              <img src={imageSrc} alt={imageAlt} />
+              <ModalImage src={imageSrc} alt={imageAlt} />
               <p>{content}</p>
             </ModalContent>
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import Modal, { ModalAction } from "./Modal";
-import success from "../../assets/success.png";
+import successPng from "../../assets/success.png";
 
 export default {
   title: "Components/Base/Modal",
@@ -13,7 +13,7 @@ export default {
     hasCloseButton: true,
 
     title: "Modal Title",
-    imageSrc: success,
+    imageSrc: successPng,
     imageAlt: "Success",
     content: "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
     actions: new Array(1).fill(undefined),
