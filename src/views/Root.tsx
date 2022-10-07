@@ -48,7 +48,7 @@ const ContentPage = styled.div<{ marginTop: number }>`
 
 const ModalContext = createContext({});
 
-export default function App() {
+export default function Root() {
   const toolbarHeight = 80;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
