@@ -1,12 +1,16 @@
 import React, { createContext, useReducer, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import GlobalStyle from "../GlobalStyle";
 import { darkTheme, lightTheme } from "../themes";
 
 import Toolbar from "../components/base/Toolbar";
+import Drawer, { Positions } from "../components/base/Drawer";
+import Divider from "../components/base/Divider";
+import Button from "../components/base/Button";
+import Avatar from "../components/Avatar";
 import PalletteSelector, { Pallettes } from "../components/PalletteSelector";
 import InformationModal from "../components/InformationModal";
 import ConfirmationModal from "../components/ConfirmationModal";
@@ -52,6 +56,8 @@ export default function Root() {
   const toolbarHeight = 80;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const [pallette, setPallette] = useState(Pallettes.DEFAULT);
 
   const getThemeFromPallette = (newPallette: Pallettes) => {
@@ -79,13 +85,44 @@ export default function Root() {
 
       <AppToolbar height={toolbarHeight}>
         <ToolbarLeft>
-          <ThreeBarsIcon />
+          <Button text onClick={() => setIsDrawerOpen((value) => !value)}>
+            <ThreeBarsIcon />
+          </Button>
         </ToolbarLeft>
         <h1>Event Manager React</h1>
         <ToolbarRight>
           <PalletteSelector value={pallette} onChange={setPallette} />
         </ToolbarRight>
       </AppToolbar>
+
+      {isDrawerOpen && (
+        <Drawer
+          width={450}
+          topOffset={toolbarHeight}
+          position={Positions.L}
+          onClose={() => setIsDrawerOpen(false)}
+        >
+          <Avatar size="160px" />
+
+          <Divider />
+
+          <Button text as={Link} to="/">
+            Home
+          </Button>
+          <Button text as={Link} to="/events">
+            Events
+          </Button>
+
+          <Divider />
+
+          <Button text as={Link} to="/sign-in">
+            Sign in
+          </Button>
+          <Button text as={Link} to="/sign-up">
+            Sign up
+          </Button>
+        </Drawer>
+      )}
 
       <ContentPage marginTop={toolbarHeight}>
         <ModalContext.Provider value={setModalConfiguration}>
