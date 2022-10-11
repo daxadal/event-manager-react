@@ -32,7 +32,7 @@ const StyledSvg = styled.svg`
   height: 80%;
   margin-bottom: 4px;
   vertical-align: middle;
-  fill: ${(props) => props.theme.background};
+  fill: ${(props) => props.theme.border};
 `;
 
 export default function Avatar(props: AvatarProps) {
