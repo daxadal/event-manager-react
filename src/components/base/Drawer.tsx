@@ -22,6 +22,7 @@ const Mask = styled.div<{ topOffset: number }>`
 
 const Menu = styled.div<MenuProps>`
   flex-direction: column;
+  align-items: center;
 
   position: fixed;
   overflow: auto;
