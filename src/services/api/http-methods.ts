@@ -18,7 +18,7 @@ const formatURL = (
   return `${domain}${path}?${stringify(qs)}`;
 };
 
-const request = async (req: Request): Promise<any> => {
+const request = async (req: Request): Promise<unknown> => {
   const token = getAuthenticationToken();
 
   if (token) req.headers.set("Authorization", `Bearer ${token}`);
@@ -42,7 +42,7 @@ const request = async (req: Request): Promise<any> => {
 export const get = async (
   path: string,
   qs?: Record<string, unknown>
-): Promise<any> =>
+): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path, qs), {
       method: "GET",
@@ -55,7 +55,7 @@ export const get = async (
 export const post = (
   path: string,
   body?: Record<string, unknown>
-): Promise<any> =>
+): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path), {
       method: "POST",
@@ -69,7 +69,7 @@ export const post = (
 export const put = (
   path: string,
   body?: Record<string, unknown>
-): Promise<any> =>
+): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path), {
       method: "PUT",
@@ -83,7 +83,7 @@ export const put = (
 export const del = async (
   path: string,
   qs?: Record<string, unknown>
-): Promise<any> =>
+): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path, qs), {
       method: "DELETE",
@@ -96,7 +96,7 @@ export const del = async (
 export const delWithBody = (
   path: string,
   body?: Record<string, unknown>
-): Promise<any> =>
+): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path), {
       method: "DELETE",
