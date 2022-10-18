@@ -54,15 +54,15 @@ export const SubscriptionResponse = z.object({ subscription: Subscription });
 
 // #region --- User ---
 
-export const User = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  hashedPassword: z.string(),
-  sessionToken: z.string().optional(),
-  socketId: z.string().optional(),
-});
+export type SignInData = {
+  email: string;
+  password: string;
+};
 
-export type User = z.infer<typeof User>;
+export type SignUpData = { name: string } & SignInData;
+
+export const SignResponse = z.object({
+  token: z.string(),
+});
 
 // #endregion --- User ---
