@@ -70,17 +70,11 @@ interface LinkProps extends React.PropsWithChildren, ContainerProps {
 }
 
 export default function Button(props: ButtonProps | LinkProps) {
-  const { as, children, outlined, text, onClick, ...other } = props;
+  const { as, children, outlined, text, ...other } = props;
 
   return (
-    <Container
-      as={as || "button"}
-      outlined={outlined}
-      text={text}
-      onClick={onClick}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...other}
-    >
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <Container as={as || "button"} outlined={outlined} text={text} {...other}>
       {children}
     </Container>
   );
