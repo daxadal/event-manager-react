@@ -8,8 +8,10 @@ export default createGlobalStyle`
   }
 
   body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+    font: 14px Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
   }
   
   ol,
