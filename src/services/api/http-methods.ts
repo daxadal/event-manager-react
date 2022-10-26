@@ -52,10 +52,7 @@ export const get = async (
     })
   );
 
-export const post = (
-  path: string,
-  body?: Record<string, unknown>
-): Promise<unknown> =>
+export const post = (path: string, body?: unknown): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path), {
       method: "POST",
@@ -66,10 +63,7 @@ export const post = (
     })
   );
 
-export const put = (
-  path: string,
-  body?: Record<string, unknown>
-): Promise<unknown> =>
+export const put = (path: string, body?: unknown): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path), {
       method: "PUT",
@@ -93,10 +87,7 @@ export const del = async (
     })
   );
 
-export const delWithBody = (
-  path: string,
-  body?: Record<string, unknown>
-): Promise<unknown> =>
+export const delWithBody = (path: string, body?: unknown): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path), {
       method: "DELETE",

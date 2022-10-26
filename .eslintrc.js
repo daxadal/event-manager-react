@@ -42,6 +42,8 @@ module.exports = {
       },
     ],
     "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
   },
   overrides: [
     {

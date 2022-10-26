@@ -66,6 +66,7 @@ interface ButtonProps extends React.PropsWithChildren, ContainerProps {
 interface LinkProps extends React.PropsWithChildren, ContainerProps {
   as: React.FC;
   to: string;
+  onClick?: () => void;
 }
 
 export default function Button(props: ButtonProps | LinkProps) {
