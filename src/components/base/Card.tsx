@@ -2,10 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
+  background-color: ${(props) => props.theme.foreground};
+  border-color: ${(props) => props.theme.border};
+  color: ${(props) => props.theme.text};
+
   margin: 1rem;
   border: 1px solid;
   border-radius: 1rem;
   padding: 1rem;
+
+  width: 100%;
 
   display: flex;
   flex-direction: column;

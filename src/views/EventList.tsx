@@ -49,14 +49,14 @@ export default function EventList() {
       <TitleDiv>
         <h1>Event list</h1>
         <TitleButtons>
-          <Button as={Link} to="/event/create">
+          <Button as={Link} to="/events/new">
             Create event
           </Button>
         </TitleButtons>
       </TitleDiv>
       <CardsDiv columns={2}>
         {events.map((event) => (
-          <StyledLink to={`/event/${event.id}`}>
+          <StyledLink to={`/events/${event.id}`}>
             <StyledCard event={event} />
           </StyledLink>
         ))}

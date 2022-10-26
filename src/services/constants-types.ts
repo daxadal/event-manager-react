@@ -18,7 +18,7 @@ export const Event = z.object({
   id: z.string(),
   headline: z.string(),
   description: z.string().optional(),
-  startDate: z.date(),
+  startDate: z.string().transform((d) => new Date(d)),
   location: z.object({
     name: z.string().optional(),
     lat: z.number().optional(),
@@ -42,7 +42,7 @@ export const Subscription = z.object({
   id: z.string(),
   eventId: z.string(),
   subscriberId: z.string(),
-  subscriptionDate: z.date(),
+  subscriptionDate: z.string().transform((d) => new Date(d)),
   comment: z.string().optional(),
 });
 
