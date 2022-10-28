@@ -49,7 +49,12 @@ const Menu = styled.div<MenuProps>`
   transition-delay: 1s;
 
   background-color: ${(props) => props.theme.foreground};
-  border: 1px solid ${(props) => props.theme.border};
+ 
+  border-${(props) =>
+    props.position === Positions.L ? "right" : "left"}: 1px solid ${(props) =>
+  props.theme.border};
+    
+
 `;
 
 interface MenuProps {
