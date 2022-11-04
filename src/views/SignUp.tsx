@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "../components/base/Button";
@@ -38,7 +38,9 @@ export default function SignUp() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
+
   const openModal = useContext(ModalContext);
+  const navigate = useNavigate();
 
   async function submit() {
     try {
@@ -58,7 +60,7 @@ export default function SignUp() {
         openModal({
           type: ModalOp.OPEN_SUCCESS_MODAL,
           message: "Sign up successful",
-          onClose: () => redirect("/"),
+          onClose: () => navigate("/"),
         });
       }
     } catch (error) {
