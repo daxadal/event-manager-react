@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { redirect } from "react-router-dom";
 
@@ -8,6 +8,8 @@ import Input from "../components/base/Input";
 
 import { Event } from "../services/constants-types";
 import { createEvent } from "../services/api/routes";
+import { ModalOp } from "../reducers/modal-types";
+import { ModalContext } from "./Root";
 
 const TitleDiv = styled.div`
   display: flex;
@@ -27,10 +29,30 @@ export default function EventCreation() {
   });
   const [location, setLocation] = useState<Partial<Event["location"]>>({});
 
+  const openModal = useContext(ModalContext);
+
   async function submit() {
-    console.log("Event data", { ...event, location });
-    const response = await createEvent({ ...event, location } as Event);
-    redirect(`/events/${response.id}`);
+    try {
+      if (!event.headline || !event.startDate) {
+        openModal({
+          type: ModalOp.OPEN_ERROR_MODAL,
+          message: "Fill out all the fields",
+        });
+      } else {
+        console.log("Event data", { ...event, location });
+        const response = await createEvent({ ...event, location } as Event);
+        openModal({
+          type: ModalOp.OPEN_SUCCESS_MODAL,
+          message: "Event created",
+          onClose: () => redirect(`/events/${response.id}`),
+        });
+      }
+    } catch (error) {
+      openModal({
+        type: ModalOp.OPEN_ERROR_MODAL,
+        message: error.message || "An error occurred",
+      });
+    }
   }
   return (
     <>
@@ -102,13 +124,8 @@ export default function EventCreation() {
 
         <Divider />
 
-        <Button as="label" onClick={() => null}>
+        <Button as="button" type="submit">
           Create event
-          <input
-            type="submit"
-            value="Create event"
-            style={{ display: "none" }}
-          />
         </Button>
       </StyledForm>
     </>
