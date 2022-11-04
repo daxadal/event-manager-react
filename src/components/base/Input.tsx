@@ -58,10 +58,7 @@ export default function Input(props: InputProps) {
         type={type}
         value={value ?? ""}
         placeholder={placeholder}
-        onInput={(e) => {
-          console.info(`${id} value`, e.currentTarget.value);
-          return onChange?.((e.target as HTMLInputElement).value);
-        }}
+        onInput={(e) => onChange?.((e.target as HTMLInputElement).value)}
       />
     </Wrapper>
   );
