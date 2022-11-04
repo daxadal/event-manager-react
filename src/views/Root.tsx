@@ -19,6 +19,7 @@ import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 
 import { checkEnumExhausted } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
+import { ModalAction, ModalOp } from "../reducers/modal-types";
 import { useAuthenticationWatcher } from "../services/api/token";
 
 const AppToolbar = styled(Toolbar)`
@@ -51,7 +52,9 @@ const ContentPage = styled.div<{ marginTop: number }>`
   padding: 16px;
 `;
 
-const ModalContext = createContext({});
+export const ModalContext = createContext<React.Dispatch<ModalAction>>(
+  () => null
+);
 
 export default function Root() {
   const toolbarHeight = 80;
@@ -152,14 +155,23 @@ export default function Root() {
         <InformationModal
           type={modalConfiguration.modalType}
           message={modalConfiguration.modalMessage}
-          onClose={modalConfiguration.onModalClose}
+          onClose={() => {
+            modalConfiguration.onModalClose();
+            setModalConfiguration({ type: ModalOp.CLOSE_MODAL });
+          }}
         />
       )}
       {modalConfiguration.showConfirmModal && (
         <ConfirmationModal
           message={modalConfiguration.modalMessage}
-          onCancel={modalConfiguration.onModalCancel}
-          onConfirm={modalConfiguration.onModalConfirm}
+          onCancel={() => {
+            modalConfiguration.onModalCancel();
+            setModalConfiguration({ type: ModalOp.CLOSE_MODAL });
+          }}
+          onConfirm={() => {
+            modalConfiguration.onModalConfirm();
+            setModalConfiguration({ type: ModalOp.CLOSE_MODAL });
+          }}
         />
       )}
     </ThemeProvider>
