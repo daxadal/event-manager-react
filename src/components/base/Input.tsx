@@ -33,15 +33,18 @@ const StyledInput = styled.input`
   }
 `;
 
-type ValueType = string | number | readonly string[] | undefined;
+type HTMLInput = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "onInput"
+>;
 
-interface InputProps {
+interface InputProps extends HTMLInput {
   id: string;
-  type: string;
+  type: React.HTMLInputTypeAttribute;
   tagText?: string;
-  value: ValueType;
-  placeholder: string;
-  onChange: (value: ValueType) => void;
+  value?: HTMLInput["value"];
+  placeholder?: string;
+  onChange?: (value: string) => void;
 }
 
 export default function Input(props: InputProps) {
@@ -53,9 +56,9 @@ export default function Input(props: InputProps) {
       <StyledInput
         id={id}
         type={type}
-        value={value}
+        value={value ?? ""}
         placeholder={placeholder}
-        onInput={(e) => onChange((e.target as HTMLInputElement).value)}
+        onInput={(e) => onChange?.((e.target as HTMLInputElement).value)}
       />
     </Wrapper>
   );

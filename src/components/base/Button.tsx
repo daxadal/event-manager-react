@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 interface ContainerProps {
@@ -58,23 +59,58 @@ const Container = styled.button<ContainerProps>`
     `}
 `;
 
+interface LabelLinkProps extends React.PropsWithChildren, ContainerProps {
+  as: "a" | "label";
+  onClick?: () => void;
+}
+
 interface ButtonProps extends React.PropsWithChildren, ContainerProps {
-  as?: "a" | "button" | "label";
-  onClick: () => void;
+  as?: "button";
+  type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }
 
 interface LinkProps extends React.PropsWithChildren, ContainerProps {
-  as: React.FC;
+  as: typeof Link;
   to: string;
   onClick?: () => void;
 }
 
-export default function Button(props: ButtonProps | LinkProps) {
-  const { as, children, outlined, text, ...other } = props;
-
+export default function Button(
+  props: ButtonProps | LinkProps | LabelLinkProps
+) {
+  const { as } = props;
+  if (as === "a" || as === "label") {
+    const { onClick, children, text, outlined } = props;
+    return (
+      <Container as={as} onClick={onClick} text={text} outlined={outlined}>
+        {children}
+      </Container>
+    );
+  }
+  if (!as || as === "button") {
+    const { onClick, children, text, outlined, type } = props;
+    return (
+      <Container
+        as={as || "button"}
+        type={type || "button"}
+        onClick={onClick}
+        text={text}
+        outlined={outlined}
+      >
+        {children}
+      </Container>
+    );
+  }
+  const { onClick, children, text, outlined, to } = props as LinkProps;
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <Container as={as || "button"} outlined={outlined} text={text} {...other}>
+    <Container
+      as={as}
+      to={to}
+      onClick={onClick}
+      text={text}
+      outlined={outlined}
+    >
       {children}
     </Container>
   );

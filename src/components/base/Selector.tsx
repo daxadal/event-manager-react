@@ -41,7 +41,7 @@ interface SelectorProps extends React.PropsWithChildren {
   onChange: (value: string) => void;
 }
 
-export default function Input(props: SelectorProps) {
+export default function Selector(props: SelectorProps) {
   const { id, tagText, multiple, value, onChange, children } = props;
 
   return (

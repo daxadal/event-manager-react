@@ -3,7 +3,7 @@ import { Reducer } from "react";
 import { ModalType } from "../components/InformationModal";
 
 import { checkEnumExhausted } from "../services/constants-types";
-import { ModalOp, ModalConfiguration, ModalAction } from "./modal-types.d";
+import { ModalOp, ModalConfiguration, ModalAction } from "./modal-types";
 
 type ModalInfoOp =
   | ModalOp.OPEN_SUCCESS_MODAL
