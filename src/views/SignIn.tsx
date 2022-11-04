@@ -52,7 +52,7 @@ export default function SignIn() {
         setAuthenticationToken(token);
         openModal({
           type: ModalOp.OPEN_SUCCESS_MODAL,
-          message: "Sign up successful",
+          message: "Sign in successful",
           onClose: () => navigate("/"),
         });
       }
@@ -66,7 +66,7 @@ export default function SignIn() {
   return (
     <>
       <TitleDiv>
-        <h1>Sign up</h1>
+        <h1>Sign in</h1>
       </TitleDiv>
       <StyledForm
         onSubmit={(e) => {
@@ -93,7 +93,7 @@ export default function SignIn() {
         <Divider />
 
         <Button as="button" type="submit">
-          Sign up
+          Sign in
         </Button>
       </StyledForm>
     </>
