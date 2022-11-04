@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../components/base/Button";
 import Divider from "../components/base/Divider";
@@ -30,6 +30,7 @@ export default function EventCreation() {
   const [location, setLocation] = useState<Partial<Event["location"]>>({});
 
   const openModal = useContext(ModalContext);
+  const navigate = useNavigate();
 
   async function submit() {
     try {
@@ -39,12 +40,11 @@ export default function EventCreation() {
           message: "Fill out all the fields",
         });
       } else {
-        console.log("Event data", { ...event, location });
         const response = await createEvent({ ...event, location } as Event);
         openModal({
           type: ModalOp.OPEN_SUCCESS_MODAL,
           message: "Event created",
-          onClose: () => redirect(`/events/${response.id}`),
+          onClose: () => navigate(`/events/${response.id}`),
         });
       }
     } catch (error) {
