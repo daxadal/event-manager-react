@@ -3,6 +3,7 @@ import { redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "../components/base/Button";
+import Divider from "../components/base/Divider";
 import Input from "../components/base/Input";
 import { ModalOp } from "../reducers/modal-types";
 import { signUp } from "../services/api/routes";
@@ -107,6 +108,8 @@ export default function SignUp() {
           value={passwordConfirm}
           onChange={setPasswordConfirm}
         />
+
+        <Divider />
 
         <Button as="button" type="submit">
           Sign up
