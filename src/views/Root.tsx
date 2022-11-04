@@ -19,6 +19,7 @@ import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 
 import { checkEnumExhausted } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
+import { useAuthenticationWatcher } from "../services/api/token";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -55,6 +56,8 @@ const ModalContext = createContext({});
 export default function Root() {
   const toolbarHeight = 80;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const isAuthenticated = useAuthenticationWatcher();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -102,7 +105,7 @@ export default function Root() {
           position={Positions.L}
           onClose={() => setIsDrawerOpen(false)}
         >
-          <Avatar size="160px" />
+          <Avatar size="160px" isAuthenticated={isAuthenticated} />
 
           <Divider />
 
