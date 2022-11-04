@@ -18,9 +18,20 @@ const TitleDiv = styled.div`
 `;
 
 const StyledForm = styled.form`
+  background-color: ${(props) => props.theme.foreground};
+  border-color: ${(props) => props.theme.border};
+  color: ${(props) => props.theme.text};
+
+  margin: 1rem auto;
+  border: 1px solid;
+  border-radius: 1rem;
+  padding: 1rem;
+
+  max-width: 500px;
+
   display: flex;
   flex-direction: column;
-  margin: auto;
+  align-items: stretch;
 `;
 
 export default function EventCreation() {
