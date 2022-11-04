@@ -40,25 +40,30 @@ export default function SignUp() {
   const openModal = useContext(ModalContext);
 
   async function submit() {
-    console.log("Sign up data", { name, email, password, passwordConfirm });
-    if (!name || !email || !password || !passwordConfirm) {
+    try {
+      if (!name || !email || !password || !passwordConfirm) {
+        openModal({
+          type: ModalOp.OPEN_ERROR_MODAL,
+          message: "Fill out all the fields",
+        });
+      } else if (password !== passwordConfirm) {
+        openModal({
+          type: ModalOp.OPEN_ERROR_MODAL,
+          message: "Passwords do not match",
+        });
+      } else {
+        const token = await signUp({ name, email, password });
+        setAuthenticationToken(token);
+        openModal({
+          type: ModalOp.OPEN_SUCCESS_MODAL,
+          message: "Sign up successful",
+          onClose: () => redirect("/"),
+        });
+      }
+    } catch (error) {
       openModal({
         type: ModalOp.OPEN_ERROR_MODAL,
-        message: "Fill out all the fields",
-      });
-    } else
-    if (password !== passwordConfirm) {
-      openModal({
-        type: ModalOp.OPEN_ERROR_MODAL,
-        message: "Passwords do not match",
-      });
-    } else {
-      const token = await signUp({ name, email, password });
-      setAuthenticationToken(token);
-      openModal({
-        type: ModalOp.OPEN_SUCCESS_MODAL,
-        message: "Sign up successful",
-        onClose: () => redirect("/"),
+        message: error.message || "An error occurred",
       });
     }
   }
