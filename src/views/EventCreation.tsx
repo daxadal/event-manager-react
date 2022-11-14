@@ -6,7 +6,7 @@ import Button from "../components/base/Button";
 import Divider from "../components/base/Divider";
 import Input from "../components/base/Input";
 
-import { Event } from "../services/constants-types";
+import { EventData } from "../services/constants-types";
 import { createEvent } from "../services/api/routes";
 import { ModalOp } from "../reducers/modal-types";
 import { ModalContext } from "./Root";
@@ -35,10 +35,10 @@ const StyledForm = styled.form`
 `;
 
 export default function EventCreation() {
-  const [event, setEvent] = useState<Partial<Event>>({
+  const [event, setEvent] = useState<Partial<EventData>>({
     startDate: new Date(),
   });
-  const [location, setLocation] = useState<Partial<Event["location"]>>({});
+  const [location, setLocation] = useState<Partial<EventData["location"]>>({});
 
   const openModal = useContext(ModalContext);
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ export default function EventCreation() {
           message: "Fill out all the fields",
         });
       } else {
-        const response = await createEvent({ ...event, location } as Event);
+        const response = await createEvent({ ...event, location } as EventData);
         openModal({
           type: ModalOp.OPEN_SUCCESS_MODAL,
           message: "Event created",

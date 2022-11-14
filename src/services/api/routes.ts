@@ -3,6 +3,7 @@
 import { del, get, post, put } from "./http-methods";
 import {
   Event,
+  EventData,
   EventListResponse,
   EventResponse,
   SignInData,
@@ -22,14 +23,16 @@ export const getEvent = async (id: string): Promise<Event> => {
   return EventResponse.parse(response).event;
 };
 
-export const createEvent = async (event: Omit<Event, "id">): Promise<Event> => {
+export const createEvent = async (event: EventData): Promise<Event> => {
   const response = await post("/events", event);
   return EventResponse.parse(response).event;
 };
 
-export const updateEvent = async (event: Event): Promise<Event> => {
-  const { id, ...eventData } = event;
-  const response = await put(`/events/${id}`, eventData);
+export const updateEvent = async (
+  id: string,
+  event: EventData
+): Promise<Event> => {
+  const response = await put(`/events/${id}`, event);
   return EventResponse.parse(response).event;
 };
 

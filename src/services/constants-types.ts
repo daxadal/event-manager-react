@@ -14,8 +14,7 @@ export enum EventState {
   PUBLIC = "public",
 }
 
-export const Event = z.object({
-  id: z.string(),
+export const EventData = z.object({
   headline: z.string(),
   description: z.string().optional(),
   startDate: z.string().transform((d) => new Date(d)),
@@ -25,6 +24,12 @@ export const Event = z.object({
     lon: z.number().optional(),
   }),
   state: z.nativeEnum(EventState),
+});
+
+export type EventData = z.infer<typeof EventData>;
+
+export const Event = EventData.augment({
+  id: z.string(),
   creatorId: z.string(),
 });
 
