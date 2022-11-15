@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: ${(props) => props.theme.foreground};
-  border-color: ${(props) => props.theme.border};
-  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.neutral.foreground};
+  border-color: ${(props) => props.theme.neutral.border};
+  color: ${(props) => props.theme.neutral.text};
 
   margin: 1rem;
   border: 1px solid;

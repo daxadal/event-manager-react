@@ -12,11 +12,11 @@ const Container = styled.button<ContainerProps>`
   align-items: center;
   justify-content: center;
 
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.neutral.text};
+  background-color: ${(props) => props.theme.neutral.background};
 
   box-sizing: border-box;
-  border: 1px solid ${(props) => props.theme.border};
+  border: 1px solid ${(props) => props.theme.neutral.border};
   border-radius: 4px;
   box-shadow: none;
 
@@ -37,7 +37,7 @@ const Container = styled.button<ContainerProps>`
   }
 
   &:focus {
-    border: 1px solid ${(props) => props.theme.text};
+    border: 1px solid ${(props) => props.theme.neutral.text};
   }
 
   ${(props) =>

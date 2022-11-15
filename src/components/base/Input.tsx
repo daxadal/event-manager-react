@@ -17,19 +17,19 @@ const StyledInput = styled.input`
   padding: 6px 16px;
   font-family: inherit;
   line-height: 1;
-  border: 1px solid ${(props) => props.theme.border};
+  border: 1px solid ${(props) => props.theme.neutral.border};
   border-radius: 8px;
   outline: none;
 
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.foreground};
+  color: ${(props) => props.theme.neutral.text};
+  background-color: ${(props) => props.theme.neutral.foreground};
 
   &:focus {
-    border-color: ${(props) => props.theme.text};
+    border-color: ${(props) => props.theme.neutral.text};
   }
 
   &[disabled] {
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.neutral.background};
   }
 `;
 
