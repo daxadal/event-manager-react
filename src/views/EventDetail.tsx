@@ -5,8 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/base/Button";
 import Divider from "../components/base/Divider";
 import Input from "../components/base/Input";
+import Selector from "../components/base/Selector";
 
-import { Event, EventData } from "../services/constants-types";
+import { Event, EventData, EventState } from "../services/constants-types";
 import { getEvent, updateEvent } from "../services/api/routes";
 import { ModalOp } from "../reducers/modal-types";
 import { ModalContext } from "./Root";
@@ -156,6 +157,19 @@ export default function EventDetail() {
         />
 
         <Divider />
+
+        <Selector
+          id="state"
+          tagText="Estado"
+          value={event.state}
+          onChange={(value) =>
+            setEvent({ ...event, state: value as EventState })
+          }
+        >
+          <option value={EventState.DRAFT}>Draft</option>
+          <option value={EventState.PRIVATE}>Private</option>
+          <option value={EventState.PUBLIC}>Public</option>
+        </Selector>
 
         <Button as="button" type="submit">
           Update event

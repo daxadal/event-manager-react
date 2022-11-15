@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/base/Button";
 import Divider from "../components/base/Divider";
 import Input from "../components/base/Input";
+import Selector from "../components/base/Selector";
 
-import { EventData } from "../services/constants-types";
+import { EventData, EventState } from "../services/constants-types";
 import { createEvent } from "../services/api/routes";
 import { ModalOp } from "../reducers/modal-types";
 import { ModalContext } from "./Root";
@@ -36,6 +37,7 @@ const StyledForm = styled.form`
 
 export default function EventCreation() {
   const [event, setEvent] = useState<Partial<EventData>>({
+    state: EventState.DRAFT,
     startDate: new Date(),
   });
   const [location, setLocation] = useState<Partial<EventData["location"]>>({});
@@ -134,6 +136,19 @@ export default function EventCreation() {
         />
 
         <Divider />
+
+        <Selector
+          id="state"
+          tagText="Estado"
+          value={event.state}
+          onChange={(value) =>
+            setEvent({ ...event, state: value as EventState })
+          }
+        >
+          <option value={EventState.DRAFT}>Draft</option>
+          <option value={EventState.PRIVATE}>Private</option>
+          <option value={EventState.PUBLIC}>Public</option>
+        </Selector>
 
         <Button as="button" type="submit">
           Create event
