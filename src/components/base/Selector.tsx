@@ -37,7 +37,7 @@ interface SelectorProps extends React.PropsWithChildren {
   id: string;
   tagText?: string;
   multiple?: boolean;
-  value: string;
+  value?: string;
   onChange: (value: string) => void;
 }
 
