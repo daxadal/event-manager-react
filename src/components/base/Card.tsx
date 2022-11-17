@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { Color } from "../../themes";
 
-const Container = styled.div`
-  background-color: ${(props) => props.theme.neutral.foreground};
-  border-color: ${(props) => props.theme.neutral.border};
-  color: ${(props) => props.theme.neutral.text};
+interface ContainerProps {
+  color: Color;
+}
+
+const Container = styled.div<ContainerProps>`
+  background-color: ${(props) => props.theme[props.color].foreground};
+  border-color: ${(props) => props.theme[props.color].border};
+  color: ${(props) => props.theme[props.color].text};
 
   margin: 1rem;
   border: 1px solid;
@@ -38,7 +43,7 @@ const BottomCenter = styled.span`
   flex: 1 0 0;
 `;
 
-interface CardProps {
+interface CardProps extends Partial<ContainerProps> {
   title: string;
   center: React.ReactNode;
   leftCorner: React.ReactNode;
@@ -46,9 +51,9 @@ interface CardProps {
 }
 
 export default function Card(props: CardProps) {
-  const { title, center, leftCorner, rightCorner } = props;
+  const { title, center, leftCorner, rightCorner, color } = props;
   return (
-    <Container>
+    <Container color={color ?? "neutral"}>
       <Title>{title}</Title>
       <Center>{center}</Center>
       <Bottom>

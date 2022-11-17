@@ -12,20 +12,27 @@ const StyledLabel = styled.label`
   padding: 8px;
 `;
 
-const StyledSelector = styled.select`
+interface SelectorStyleProps {
+  isValid: boolean;
+}
+
+const StyledSelector = styled.select<SelectorStyleProps>`
   flex: 1 1 0;
   padding: 6px 16px;
   font-family: inherit;
   line-height: 1;
-  border: 1px solid ${(props) => props.theme.neutral.border};
+  border: 1px solid;
   border-radius: 8px;
   outline: none;
 
   color: ${(props) => props.theme.neutral.text};
+  border-color: ${(props) =>
+    props.isValid ? props.theme.neutral.border : props.theme.red.border};
   background-color: ${(props) => props.theme.neutral.foreground};
 
   &:focus {
-    border-color: ${(props) => props.theme.neutral.text};
+    border-color: ${(props) =>
+      props.isValid ? props.theme.neutral.text : props.theme.red.text};
   }
 
   &[disabled] {
@@ -33,7 +40,9 @@ const StyledSelector = styled.select`
   }
 `;
 
-interface SelectorProps extends React.PropsWithChildren {
+interface SelectorProps
+  extends React.PropsWithChildren,
+    Partial<SelectorStyleProps> {
   id: string;
   tagText?: string;
   multiple?: boolean;
@@ -42,7 +51,7 @@ interface SelectorProps extends React.PropsWithChildren {
 }
 
 export default function Selector(props: SelectorProps) {
-  const { id, tagText, multiple, value, onChange, children } = props;
+  const { id, tagText, multiple, value, onChange, children, isValid } = props;
 
   return (
     <Wrapper>
@@ -52,6 +61,7 @@ export default function Selector(props: SelectorProps) {
         multiple={Boolean(multiple)}
         value={value}
         onInput={(e) => onChange((e.target as HTMLSelectElement).value)}
+        isValid={isValid ?? true}
       >
         {children}
       </StyledSelector>

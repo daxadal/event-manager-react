@@ -1,20 +1,19 @@
 import { DefaultTheme } from "styled-components";
 
+export interface ColorTheme {
+  background: string;
+  foreground: string;
+  border: string;
+  text: string;
+}
+
+export type Color = "neutral" | "cyan" | "green" | "purple" | "yellow" | "red";
+
+export type AugmentedDefaultTheme = Record<Color, ColorTheme>;
+
 declare module "styled-components" {
-  export interface ColorTheme {
-    background: string;
-    foreground: string;
-    border: string;
-    text: string;
-  }
-  export interface DefaultTheme {
-    neutral: ColorTheme;
-    cyan: ColorTheme;
-    green: ColorTheme;
-    purple: ColorTheme;
-    yellow: ColorTheme;
-    red: ColorTheme;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface DefaultTheme extends AugmentedDefaultTheme {}
 }
 
 export const lightTheme: DefaultTheme = {
