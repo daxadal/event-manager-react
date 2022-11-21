@@ -7,14 +7,14 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  background-color: ${(props) => props.theme[props.color].foreground};
-  border-color: ${(props) => props.theme[props.color].border};
-  color: ${(props) => props.theme[props.color].text};
-
   margin: 1rem;
   border: 1px solid;
   border-radius: 1rem;
   padding: 1rem;
+
+  background-color: ${(props) => props.theme[props.color].foreground};
+  border-color: ${(props) => props.theme[props.color].border};
+  color: ${(props) => props.theme[props.color].text};
 
   width: 100%;
 
