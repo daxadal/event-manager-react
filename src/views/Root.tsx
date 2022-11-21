@@ -16,11 +16,13 @@ import InformationModal from "../components/InformationModal";
 import ConfirmationModal from "../components/ConfirmationModal";
 
 import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
+import { ReactComponent as MessageIcon } from "../assets/message.svg";
 
 import { checkEnumExhausted } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
 import { useAuthenticationWatcher } from "../services/api/token";
+import Bubble from "../components/base/Bubble";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -50,6 +52,16 @@ const ToolbarRight = styled.div`
 const ContentPage = styled.div<{ marginTop: number }>`
   margin-top: ${(props) => props.marginTop}px;
   padding: 16px;
+`;
+
+const FloatingDiv = styled.div<{ offset: number }>`
+  position: absolute;
+  bottom: ${(props) => props.offset}px;
+  right: ${(props) => props.offset}px;
+`;
+
+const StyledMessageIcon = styled(MessageIcon)`
+  fill: ${(props) => props.theme.text};
 `;
 
 export const ModalContext = createContext<React.Dispatch<ModalAction>>(
@@ -150,6 +162,12 @@ export default function Root() {
           <Outlet />
         </ModalContext.Provider>
       </ContentPage>
+
+      <FloatingDiv offset={32}>
+        <Bubble size={64} onClick={() => null}>
+          <StyledMessageIcon />
+        </Bubble>
+      </FloatingDiv>
 
       {modalConfiguration.showInfoModal && (
         <InformationModal
