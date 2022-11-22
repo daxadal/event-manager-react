@@ -26,8 +26,8 @@ const InnerWrapper = styled.div`
 const ModalBody = styled.div`
   text-align: center;
   margin: 0 auto;
-  background-color: ${(props) => props.theme.foreground};
-  border: 1px solid ${(props) => props.theme.border};
+  background-color: ${(props) => props.theme.neutral.foreground};
+  border: 1px solid ${(props) => props.theme.neutral.border};
   border-radius: 16px;
   transition: transform 0.2s ease-in-out;
   max-width: 560px;
@@ -61,7 +61,7 @@ const ModalImage = styled.img`
 `;
 
 const ModalContent = styled.div`
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.neutral.background};
   padding: 16px 32px;
 `;
 

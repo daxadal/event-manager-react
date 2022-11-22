@@ -20,6 +20,9 @@ const Mask = styled.div<{ topOffset: number }>`
   background-color: rgba(0, 0, 0, 0.2);
 `;
 
+const getSide = (props: MenuProps) =>
+  props.position === Positions.L ? "right" : "left";
+
 const Menu = styled.div<MenuProps>`
   flex-direction: column;
   align-items: center;
@@ -48,11 +51,9 @@ const Menu = styled.div<MenuProps>`
   transition: transform 0.2s ease-in-out;
   transition-delay: 1s;
 
-  background-color: ${(props) => props.theme.foreground};
+  background-color: ${(props) => props.theme.neutral.foreground};
  
-  border-${(props) =>
-    props.position === Positions.L ? "right" : "left"}: 1px solid ${(props) =>
-  props.theme.border};
+  border-${getSide}: 1px solid ${(props) => props.theme.neutral.border};
     
 
 `;

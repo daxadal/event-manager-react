@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import { z } from "zod";
 
 export function checkEnumExhausted(e: never): never {

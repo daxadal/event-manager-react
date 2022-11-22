@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Color } from "../../themes";
 
 interface ContainerProps {
-  text?: boolean;
-  outlined?: boolean;
+  text: boolean;
+  outlined: boolean;
+  color: Color;
 }
 
 const Container = styled.button<ContainerProps>`
@@ -12,11 +14,11 @@ const Container = styled.button<ContainerProps>`
   align-items: center;
   justify-content: center;
 
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme[props.color].text};
+  background-color: ${(props) => props.theme[props.color].background};
 
   box-sizing: border-box;
-  border: 1px solid ${(props) => props.theme.border};
+  border: 1px solid ${(props) => props.theme[props.color].border};
   border-radius: 4px;
   box-shadow: none;
 
@@ -37,7 +39,7 @@ const Container = styled.button<ContainerProps>`
   }
 
   &:focus {
-    border: 1px solid ${(props) => props.theme.text};
+    border: 1px solid ${(props) => props.theme[props.color].text};
   }
 
   ${(props) =>
@@ -59,18 +61,20 @@ const Container = styled.button<ContainerProps>`
     `}
 `;
 
-interface LabelLinkProps extends React.PropsWithChildren, ContainerProps {
+interface LabelLinkProps
+  extends React.PropsWithChildren,
+    Partial<ContainerProps> {
   as: "a" | "label";
   onClick?: () => void;
 }
 
-interface ButtonProps extends React.PropsWithChildren, ContainerProps {
+interface ButtonProps extends React.PropsWithChildren, Partial<ContainerProps> {
   as?: "button";
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
 }
 
-interface LinkProps extends React.PropsWithChildren, ContainerProps {
+interface LinkProps extends React.PropsWithChildren, Partial<ContainerProps> {
   as: typeof Link;
   to: string;
   onClick?: () => void;
@@ -81,35 +85,43 @@ export default function Button(
 ) {
   const { as } = props;
   if (as === "a" || as === "label") {
-    const { onClick, children, text, outlined } = props;
-    return (
-      <Container as={as} onClick={onClick} text={text} outlined={outlined}>
-        {children}
-      </Container>
-    );
-  }
-  if (!as || as === "button") {
-    const { onClick, children, text, outlined, type } = props;
+    const { onClick, color, children, text, outlined } = props;
     return (
       <Container
-        as={as || "button"}
-        type={type || "button"}
+        as={as}
         onClick={onClick}
-        text={text}
-        outlined={outlined}
+        color={color ?? "neutral"}
+        text={text ?? false}
+        outlined={outlined ?? false}
       >
         {children}
       </Container>
     );
   }
-  const { onClick, children, text, outlined, to } = props as LinkProps;
+  if (!as || as === "button") {
+    const { onClick, color, children, text, outlined, type } = props;
+    return (
+      <Container
+        as={as ?? "button"}
+        type={type ?? "button"}
+        onClick={onClick}
+        color={color ?? "neutral"}
+        text={text ?? false}
+        outlined={outlined ?? false}
+      >
+        {children}
+      </Container>
+    );
+  }
+  const { onClick, color, children, text, outlined, to } = props as LinkProps;
   return (
     <Container
       as={as}
       to={to}
       onClick={onClick}
-      text={text}
-      outlined={outlined}
+      color={color ?? "neutral"}
+      text={text ?? false}
+      outlined={outlined ?? false}
     >
       {children}
     </Container>

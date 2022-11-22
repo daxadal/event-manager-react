@@ -110,6 +110,9 @@ export default function Root() {
         <h1>Event Manager React</h1>
         <ToolbarRight>
           <PalletteSelector value={pallette} onChange={setPallette} />
+          <Button text onClick={() => setIsDrawerOpen((value) => !value)}>
+            <Avatar size="32px" isAuthenticated={isAuthenticated} />
+          </Button>
         </ToolbarRight>
       </AppToolbar>
 

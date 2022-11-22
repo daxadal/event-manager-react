@@ -17,14 +17,14 @@ const TitleDiv = styled.div`
 `;
 
 const StyledForm = styled.form`
-  background-color: ${(props) => props.theme.foreground};
-  border-color: ${(props) => props.theme.border};
-  color: ${(props) => props.theme.text};
-
   margin: 1rem auto;
   border: 1px solid;
   border-radius: 1rem;
   padding: 1rem;
+
+  background-color: ${(props) => props.theme.neutral.foreground};
+  border-color: ${(props) => props.theme.neutral.border};
+  color: ${(props) => props.theme.neutral.text};
 
   max-width: 500px;
 

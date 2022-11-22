@@ -12,24 +12,31 @@ const StyledLabel = styled.label`
   padding: 8px;
 `;
 
-const StyledInput = styled.input`
+interface InputStyleProps {
+  isValid: boolean;
+}
+
+const StyledInput = styled.input<InputStyleProps>`
   flex: 1 1 0;
   padding: 6px 16px;
   font-family: inherit;
   line-height: 1;
-  border: 1px solid ${(props) => props.theme.border};
+  border: 1px solid;
   border-radius: 8px;
   outline: none;
 
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.foreground};
+  color: ${(props) => props.theme.neutral.text};
+  border-color: ${(props) =>
+    props.isValid ? props.theme.neutral.border : props.theme.red.border};
+  background-color: ${(props) => props.theme.neutral.foreground};
 
   &:focus {
-    border-color: ${(props) => props.theme.text};
+    border-color: ${(props) =>
+      props.isValid ? props.theme.neutral.text : props.theme.red.text};
   }
 
   &[disabled] {
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.neutral.background};
   }
 `;
 
@@ -38,7 +45,7 @@ type HTMLInput = Omit<
   "onChange" | "onInput"
 >;
 
-interface InputProps extends HTMLInput {
+interface InputProps extends HTMLInput, Partial<InputStyleProps> {
   id: string;
   type: React.HTMLInputTypeAttribute;
   tagText?: string;
@@ -48,7 +55,7 @@ interface InputProps extends HTMLInput {
 }
 
 export default function Input(props: InputProps) {
-  const { id, type, tagText, value, placeholder, onChange } = props;
+  const { id, type, tagText, value, placeholder, onChange, isValid } = props;
 
   return (
     <Wrapper>
@@ -59,6 +66,7 @@ export default function Input(props: InputProps) {
         value={value ?? ""}
         placeholder={placeholder}
         onInput={(e) => onChange?.((e.target as HTMLInputElement).value)}
+        isValid={isValid ?? true}
       />
     </Wrapper>
   );
