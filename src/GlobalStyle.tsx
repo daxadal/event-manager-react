@@ -2,9 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    background-color: ${(props) => props.theme.background};
-    border-color: ${(props) => props.theme.border};
-    color: ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.neutral.background};
+    border-color: ${(props) => props.theme.neutral.border};
+    color: ${(props) => props.theme.neutral.text};
   }
 
   body {

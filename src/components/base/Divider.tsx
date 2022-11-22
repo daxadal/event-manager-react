@@ -6,7 +6,7 @@ interface DividerProps {
 }
 
 const StyledDiv = styled.div<DividerProps>`
-  background-color: ${(props) => props.theme.border};
+  background-color: ${(props) => props.theme.neutral.border};
   margin: 16px;
 
   ${(props) =>

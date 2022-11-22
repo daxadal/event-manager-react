@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface SpanProps {
   size: string;
+  isAuthenticated: boolean;
 }
 
 const StyledSpan = styled.span<SpanProps>`
@@ -21,8 +22,10 @@ const StyledSpan = styled.span<SpanProps>`
 
   vertical-align: middle;
 
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.border};
+  background-color: ${(props) =>
+    props.isAuthenticated
+      ? props.theme.green.background
+      : props.theme.neutral.background};
   border-radius: 50%;
 `;
 
@@ -37,7 +40,7 @@ const StyledSvg = styled.svg<SvgProps>`
   margin-bottom: 4px;
   vertical-align: middle;
   fill: ${(props) =>
-    props.isAuthenticated ? props.theme.text : props.theme.border};
+    props.isAuthenticated ? props.theme.green.text : props.theme.neutral.text};
 `;
 
 interface AvatarProps extends SpanProps, SvgProps {}
@@ -46,7 +49,7 @@ export default function Avatar(props: AvatarProps) {
   const { size, isAuthenticated } = props;
 
   return (
-    <StyledSpan size={size}>
+    <StyledSpan size={size} isAuthenticated={isAuthenticated}>
       <StyledSvg
         isAuthenticated={isAuthenticated}
         viewBox="64 64 896 896"
