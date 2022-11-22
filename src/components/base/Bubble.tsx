@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Color } from "../../themes";
+
 interface CircleProps {
   size: number;
+  color: Color;
 }
 
 const Circle = styled.button<CircleProps>`
@@ -14,8 +17,8 @@ const Circle = styled.button<CircleProps>`
   border-radius: ${(props) => props.size / 2}px;
   box-shadow: none;
 
-  border-color: ${(props) => props.theme.border};
-  background-color: ${(props) => props.theme.foreground};
+  border-color: ${(props) => props.theme[props.color].border};
+  background-color: ${(props) => props.theme[props.color].foreground};
 `;
 
 interface FloatingBubbleProps extends CircleProps, React.PropsWithChildren {
@@ -23,9 +26,9 @@ interface FloatingBubbleProps extends CircleProps, React.PropsWithChildren {
 }
 
 export default function Bubble(props: FloatingBubbleProps) {
-  const { size, onClick, children } = props;
+  const { size, color, onClick, children } = props;
   return (
-    <Circle size={size} onClick={onClick}>
+    <Circle size={size} color={color} onClick={onClick}>
       {children}
     </Circle>
   );

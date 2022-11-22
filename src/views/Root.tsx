@@ -4,7 +4,7 @@ import { Normalize } from "styled-normalize";
 import { Link, Outlet } from "react-router-dom";
 
 import GlobalStyle from "../GlobalStyle";
-import { darkTheme, lightTheme } from "../themes";
+import { Color, darkTheme, lightTheme } from "../themes";
 
 import Toolbar from "../components/base/Toolbar";
 import Drawer, { Positions } from "../components/base/Drawer";
@@ -60,8 +60,8 @@ const FloatingDiv = styled.div<{ offset: number }>`
   right: ${(props) => props.offset}px;
 `;
 
-const StyledMessageIcon = styled(MessageIcon)`
-  fill: ${(props) => props.theme.text};
+const StyledMessageIcon = styled(MessageIcon)<{ color: Color }>`
+  fill: ${(props) => props.theme[props.color].text};
 `;
 
 export const ModalContext = createContext<React.Dispatch<ModalAction>>(
@@ -167,8 +167,8 @@ export default function Root() {
       </ContentPage>
 
       <FloatingDiv offset={32}>
-        <Bubble size={64} onClick={() => null}>
-          <StyledMessageIcon />
+        <Bubble size={64} color="neutral" onClick={() => null}>
+          <StyledMessageIcon color="neutral" />
         </Bubble>
       </FloatingDiv>
 
