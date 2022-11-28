@@ -135,7 +135,11 @@ export default function Modal(props: ModalProps) {
 
             <ModalFooter>
               {actions.map((action) => (
-                <StyledButton text onClick={action.onClick}>
+                <StyledButton
+                  key={`button-${action.text}`}
+                  text
+                  onClick={action.onClick}
+                >
                   {action.text}
                 </StyledButton>
               ))}
