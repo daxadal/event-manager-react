@@ -50,11 +50,7 @@ export default function SignIn() {
       } else {
         const token = await signIn({ email, password });
         setAuthenticationToken(token);
-        openModal({
-          type: ModalOp.OPEN_SUCCESS_MODAL,
-          message: "Sign in successful",
-          onClose: () => navigate("/"),
-        });
+        navigate("/");
       }
     } catch (error) {
       openModal({
