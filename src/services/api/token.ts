@@ -7,7 +7,7 @@ export function useAuthenticationWatcher() {
   const [isAuthenticated, setAuthenticated] = useState(false);
 
   window.addEventListener(TOKEN_SET, () => setAuthenticated(true));
-  window.addEventListener(TOKEN_UNSET, () => setAuthenticated(true));
+  window.addEventListener(TOKEN_UNSET, () => setAuthenticated(false));
 
   return isAuthenticated;
 }
