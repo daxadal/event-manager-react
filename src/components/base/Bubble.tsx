@@ -22,13 +22,14 @@ const Circle = styled.button<CircleProps>`
 `;
 
 interface FloatingBubbleProps extends CircleProps, React.PropsWithChildren {
+  className?: string;
   onClick: () => void;
 }
 
 export default function Bubble(props: FloatingBubbleProps) {
-  const { size, color, onClick, children } = props;
+  const { size, color, onClick, children, className } = props;
   return (
-    <Circle size={size} color={color} onClick={onClick}>
+    <Circle size={size} color={color} onClick={onClick} className={className}>
       {children}
     </Circle>
   );

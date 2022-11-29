@@ -30,15 +30,15 @@ const StyledP = styled.p`
   text-align: justify;
 `;
 
-interface MessageProps extends Partial<ContainerProps> {
-  message: React.ReactNode;
-}
+interface MessageProps
+  extends Partial<ContainerProps>,
+    React.PropsWithChildren {}
 
 export default function Message(props: MessageProps) {
-  const { message, color } = props;
+  const { children, color } = props;
   return (
     <Container color={color ?? "neutral"}>
-      <StyledP>{message}</StyledP>
+      <StyledP>{children}</StyledP>
     </Container>
   );
 }
