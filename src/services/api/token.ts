@@ -4,7 +4,9 @@ const TOKEN_SET = "token-set";
 const TOKEN_UNSET = "token-unset";
 
 export function useAuthenticationWatcher() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(
+    localStorage.getItem("authenticationToken") !== null
+  );
 
   window.addEventListener(TOKEN_SET, () => setAuthenticated(true));
   window.addEventListener(TOKEN_UNSET, () => setAuthenticated(false));
