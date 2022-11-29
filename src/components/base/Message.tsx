@@ -18,8 +18,6 @@ const Container = styled.div<ContainerProps>`
   border-color: ${(props) => props.theme[props.color].border};
   color: ${(props) => props.theme[props.color].text};
 
-  width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: stretch;

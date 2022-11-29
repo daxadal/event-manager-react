@@ -23,6 +23,7 @@ import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
 import { useAuthenticationWatcher } from "../services/api/token";
 import Bubble from "../components/base/Bubble";
+import Message from "../components/base/Message";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -58,6 +59,16 @@ const FloatingDiv = styled.div<{ offset: number }>`
   position: absolute;
   bottom: ${(props) => props.offset}px;
   right: ${(props) => props.offset}px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  max-width: 512px;
+`;
+
+const StyledBubble = styled(Bubble)`
+  align-self: flex-end;
 `;
 
 const StyledMessageIcon = styled(MessageIcon)<{ color: Color }>`
@@ -95,6 +106,16 @@ export default function Root() {
     showInfoModal: false,
     showConfirmModal: false,
   });
+
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+
+  // FIXME: Load actual messages
+  const [messages, setMessages] = useState([
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+  ]);
 
   return (
     <ThemeProvider theme={getThemeFromPallette(pallette)}>
@@ -167,9 +188,17 @@ export default function Root() {
       </ContentPage>
 
       <FloatingDiv offset={32}>
-        <Bubble size={64} color="neutral" onClick={() => null}>
+        {isMessagesOpen &&
+          messages.map((message) => (
+            <Message color="neutral">{message}</Message>
+          ))}
+        <StyledBubble
+          size={64}
+          color="neutral"
+          onClick={() => setIsMessagesOpen((value) => !value)}
+        >
           <StyledMessageIcon color="neutral" />
-        </Bubble>
+        </StyledBubble>
       </FloatingDiv>
 
       {modalConfiguration.showInfoModal && (
