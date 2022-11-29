@@ -115,20 +115,6 @@ export default function Root() {
 
           <Divider />
 
-          <Button text as={Link} to="/" onClick={() => setIsDrawerOpen(false)}>
-            Home
-          </Button>
-          <Button
-            text
-            as={Link}
-            to="/events"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            Events
-          </Button>
-
-          <Divider />
-
           <Button
             text
             as={Link}
@@ -144,6 +130,20 @@ export default function Root() {
             onClick={() => setIsDrawerOpen(false)}
           >
             Sign up
+          </Button>
+
+          <Divider />
+
+          <Button text as={Link} to="/" onClick={() => setIsDrawerOpen(false)}>
+            Home
+          </Button>
+          <Button
+            text
+            as={Link}
+            to="/events"
+            onClick={() => setIsDrawerOpen(false)}
+          >
+            Events
           </Button>
         </Drawer>
       )}
