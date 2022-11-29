@@ -20,7 +20,11 @@ import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 import { checkEnumExhausted } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
-import { useAuthenticationWatcher } from "../services/api/token";
+import {
+  unsetAuthenticationToken,
+  useAuthenticationWatcher,
+} from "../services/api/token";
+import { signOut } from "../services/api/routes";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -115,22 +119,37 @@ export default function Root() {
 
           <Divider />
 
-          <Button
-            text
-            as={Link}
-            to="/sign-in"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            Sign in
-          </Button>
-          <Button
-            text
-            as={Link}
-            to="/sign-up"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            Sign up
-          </Button>
+          {isAuthenticated ? (
+            <Button
+              text
+              onClick={async () => {
+                setIsDrawerOpen(false);
+                await signOut();
+                unsetAuthenticationToken();
+              }}
+            >
+              Sign out
+            </Button>
+          ) : (
+            <>
+              <Button
+                text
+                as={Link}
+                to="/sign-in"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                Sign in
+              </Button>
+              <Button
+                text
+                as={Link}
+                to="/sign-up"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                Sign up
+              </Button>
+            </>
+          )}
 
           <Divider />
 
