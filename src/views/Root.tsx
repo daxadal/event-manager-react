@@ -4,7 +4,7 @@ import { Normalize } from "styled-normalize";
 import { Link, Outlet } from "react-router-dom";
 
 import GlobalStyle from "../GlobalStyle";
-import { darkTheme, lightTheme } from "../themes";
+import { Color, darkTheme, lightTheme } from "../themes";
 
 import Toolbar from "../components/base/Toolbar";
 import Drawer, { Positions } from "../components/base/Drawer";
@@ -14,8 +14,11 @@ import Avatar from "../components/Avatar";
 import PalletteSelector, { Pallettes } from "../components/PalletteSelector";
 import InformationModal from "../components/InformationModal";
 import ConfirmationModal from "../components/ConfirmationModal";
+import Bubble from "../components/base/Bubble";
+import Message from "../components/base/Message";
 
 import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
+import { ReactComponent as MessageIcon } from "../assets/message.svg";
 
 import { checkEnumExhausted, UserData } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
@@ -54,6 +57,26 @@ const ToolbarRight = styled.div`
 const ContentPage = styled.div<{ marginTop: number }>`
   margin-top: ${(props) => props.marginTop}px;
   padding: 16px;
+`;
+
+const FloatingDiv = styled.div<{ offset: number }>`
+  position: absolute;
+  bottom: ${(props) => props.offset}px;
+  right: ${(props) => props.offset}px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  max-width: 512px;
+`;
+
+const StyledBubble = styled(Bubble)`
+  align-self: flex-end;
+`;
+
+const StyledMessageIcon = styled(MessageIcon)<{ color: Color }>`
+  fill: ${(props) => props.theme[props.color].text};
 `;
 
 export const ModalContext = createContext<React.Dispatch<ModalAction>>(
@@ -96,6 +119,16 @@ export default function Root() {
     showInfoModal: false,
     showConfirmModal: false,
   });
+
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+
+  // FIXME: Load actual messages
+  const [messages, setMessages] = useState([
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+  ]);
 
   return (
     <ThemeProvider theme={getThemeFromPallette(pallette)}>
@@ -188,6 +221,20 @@ export default function Root() {
           <Outlet />
         </ModalContext.Provider>
       </ContentPage>
+
+      <FloatingDiv offset={32}>
+        {isMessagesOpen &&
+          messages.map((message) => (
+            <Message color="neutral">{message}</Message>
+          ))}
+        <StyledBubble
+          size={64}
+          color="neutral"
+          onClick={() => setIsMessagesOpen((value) => !value)}
+        >
+          <StyledMessageIcon color="neutral" />
+        </StyledBubble>
+      </FloatingDiv>
 
       {modalConfiguration.showInfoModal && (
         <InformationModal
