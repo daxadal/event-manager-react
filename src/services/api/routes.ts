@@ -6,11 +6,13 @@ import {
   EventData,
   EventListResponse,
   EventResponse,
+  MeResponse,
   SignInData,
   SignResponse,
   SignUpData,
   Subscription,
   SubscriptionResponse,
+  UserData,
 } from "../constants-types";
 
 export const getAllEvents = async (): Promise<Event[]> => {
@@ -69,6 +71,11 @@ export const signUp = async (data: SignUpData): Promise<string> => {
 
 export const signOut = async (): Promise<void> => {
   await post("/users/sign-out");
+};
+
+export const me = async (): Promise<UserData> => {
+  const response = await get("/users/me");
+  return MeResponse.parse(response).user;
 };
 
 // #endregion --- User ---

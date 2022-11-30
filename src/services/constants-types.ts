@@ -67,5 +67,13 @@ export type SignUpData = { name: string } & SignInData;
 export const SignResponse = z.object({
   token: z.string(),
 });
+export const UserData = z.object({
+  name: z.string(),
+  email: z.string().email(),
+});
+
+export type UserData = z.infer<typeof UserData>;
+
+export const MeResponse = z.object({ user: UserData });
 
 // #endregion --- User ---

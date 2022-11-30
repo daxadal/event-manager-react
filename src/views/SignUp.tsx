@@ -57,11 +57,7 @@ export default function SignUp() {
       } else {
         const token = await signUp({ name, email, password });
         setAuthenticationToken(token);
-        openModal({
-          type: ModalOp.OPEN_SUCCESS_MODAL,
-          message: "Sign up successful",
-          onClose: () => navigate("/"),
-        });
+        navigate("/");
       }
     } catch (error) {
       openModal({

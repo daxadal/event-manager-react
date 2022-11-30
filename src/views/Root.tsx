@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 import { Link, Outlet } from "react-router-dom";
@@ -14,16 +14,20 @@ import Avatar from "../components/Avatar";
 import PalletteSelector, { Pallettes } from "../components/PalletteSelector";
 import InformationModal from "../components/InformationModal";
 import ConfirmationModal from "../components/ConfirmationModal";
+import Bubble from "../components/base/Bubble";
+import Message from "../components/base/Message";
 
 import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 import { ReactComponent as MessageIcon } from "../assets/message.svg";
 
-import { checkEnumExhausted } from "../services/constants-types";
+import { checkEnumExhausted, UserData } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
-import { useAuthenticationWatcher } from "../services/api/token";
-import Bubble from "../components/base/Bubble";
-import Message from "../components/base/Message";
+import {
+  unsetAuthenticationToken,
+  useAuthenticationWatcher,
+} from "../services/api/token";
+import { me, signOut } from "../services/api/routes";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -84,6 +88,15 @@ export default function Root() {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   const isAuthenticated = useAuthenticationWatcher();
+  const [user, setUser] = useState<UserData>();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      me().then((userData) => setUser(userData));
+    } else {
+      setUser(undefined);
+    }
+  }, [isAuthenticated]);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -146,6 +159,47 @@ export default function Root() {
         >
           <Avatar size="160px" isAuthenticated={isAuthenticated} />
 
+          {user ? (
+            <p>
+              Hi, {user.name}!<br />
+              {`<${user.email}>`}
+            </p>
+          ) : (
+            <Divider />
+          )}
+
+          {isAuthenticated ? (
+            <Button
+              text
+              onClick={async () => {
+                setIsDrawerOpen(false);
+                await signOut();
+                unsetAuthenticationToken();
+              }}
+            >
+              Sign out
+            </Button>
+          ) : (
+            <>
+              <Button
+                text
+                as={Link}
+                to="/sign-in"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                Sign in
+              </Button>
+              <Button
+                text
+                as={Link}
+                to="/sign-up"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                Sign up
+              </Button>
+            </>
+          )}
+
           <Divider />
 
           <Button text as={Link} to="/" onClick={() => setIsDrawerOpen(false)}>
@@ -158,25 +212,6 @@ export default function Root() {
             onClick={() => setIsDrawerOpen(false)}
           >
             Events
-          </Button>
-
-          <Divider />
-
-          <Button
-            text
-            as={Link}
-            to="/sign-in"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            Sign in
-          </Button>
-          <Button
-            text
-            as={Link}
-            to="/sign-up"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            Sign up
           </Button>
         </Drawer>
       )}
