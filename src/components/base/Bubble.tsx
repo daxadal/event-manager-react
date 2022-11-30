@@ -21,12 +21,12 @@ const Circle = styled.button<CircleProps>`
   background-color: ${(props) => props.theme[props.color].foreground};
 `;
 
-interface FloatingBubbleProps extends CircleProps, React.PropsWithChildren {
+interface BubbleProps extends CircleProps, React.PropsWithChildren {
   className?: string;
   onClick: () => void;
 }
 
-export default function Bubble(props: FloatingBubbleProps) {
+export default function Bubble(props: BubbleProps) {
   const { size, color, onClick, children, className } = props;
   return (
     <Circle size={size} color={color} onClick={onClick} className={className}>
