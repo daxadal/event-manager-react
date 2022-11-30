@@ -52,11 +52,7 @@ export default function SignIn() {
         const token = await signIn({ email, password });
         setAuthenticationToken(token);
         socketSignIn(token);
-        openModal({
-          type: ModalOp.OPEN_SUCCESS_MODAL,
-          message: "Sign in successful",
-          onClose: () => navigate("/"),
-        });
+        navigate("/");
       }
     } catch (error) {
       openModal({
