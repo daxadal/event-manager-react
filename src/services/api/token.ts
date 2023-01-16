@@ -21,7 +21,7 @@ export const unsetAuthenticationToken = (): void => {
 export function useTokenWatcher() {
   const [prevToken, setPrevToken] = useState<string | null>(null);
   const [currentToken, setToken] = useState<string | null>(
-    localStorage.getItem("authenticationToken")
+    localStorage.getItem(TOKEN_KEY)
   );
 
   window.addEventListener(TOKEN_SET, () => {
