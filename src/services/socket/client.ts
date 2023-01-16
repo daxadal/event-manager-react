@@ -51,19 +51,3 @@ socket.on("disconnect", () => {
 socket.on("reminder", (reminder) => {
   console.debug("Client reminder: ", reminder.message);
 });
-
-socket.on("sign-in-ok", () => {
-  console.debug("Client sign-in-ok");
-});
-
-socket.on("sign-in-error", () => {
-  console.error("Client sign-in-error");
-});
-
-socket.on("sign-out-ok", () => {
-  console.debug("Client sign-out-ok");
-});
-
-socket.on("sign-out-error", () => {
-  console.error("Client sign-out-error");
-});

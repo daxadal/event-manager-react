@@ -8,7 +8,6 @@ import Input from "../components/base/Input";
 import { ModalOp } from "../reducers/modal-types";
 import { signIn } from "../services/api/routes";
 import { setAuthenticationToken } from "../services/api/token";
-import { socketSignIn } from "../services/socket/client";
 import { ModalContext } from "./Root";
 
 const TitleDiv = styled.div`
@@ -51,7 +50,6 @@ export default function SignIn() {
       } else {
         const token = await signIn({ email, password });
         setAuthenticationToken(token);
-        socketSignIn(token);
         navigate("/");
       }
     } catch (error) {

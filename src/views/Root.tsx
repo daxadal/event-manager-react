@@ -25,9 +25,10 @@ import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
 import {
   unsetAuthenticationToken,
-  useAuthenticationWatcher,
+  useTokenWatcher,
 } from "../services/api/token";
 import { me, signOut } from "../services/api/routes";
+import { socketSignIn, socketSignOut } from "../services/socket/client";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -87,16 +88,32 @@ export default function Root() {
   const toolbarHeight = 80;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  const isAuthenticated = useAuthenticationWatcher();
+  const authTokens = useTokenWatcher();
+  const isAuthenticated = Boolean(authTokens.currentToken);
+  const [isSocketConnected, setSocketConnected] = useState(false);
   const [user, setUser] = useState<UserData>();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (authTokens.prevToken) {
+      console.info("Previous token exists. Signing out...");
+      socketSignOut(authTokens.prevToken).then(
+        () => setSocketConnected(false),
+        (error) => console.error("Error on socket sign out", error)
+      );
+    }
+    if (authTokens.currentToken) {
+      console.info("Current token exists. Signing in...");
       me().then((userData) => setUser(userData));
+
+      socketSignIn(authTokens.currentToken).then(
+        () => setSocketConnected(true),
+        (error) => console.error("Error on socket sign in", error)
+      );
     } else {
+      console.info("Current token DOESN'T exists. No user");
       setUser(undefined);
     }
-  }, [isAuthenticated]);
+  }, [authTokens.currentToken, authTokens.prevToken]);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -123,12 +140,14 @@ export default function Root() {
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
 
   // FIXME: Load actual messages
-  const [messages, setMessages] = useState([
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-  ]);
+  const [messages, setMessages] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!authTokens.prevToken && authTokens.currentToken)
+      setMessages((msgs) => [...msgs, "Connected to server"]);
+    else if (authTokens.prevToken && !authTokens.currentToken)
+      setMessages((msgs) => [...msgs, "Disconnected from server"]);
+  }, [authTokens.currentToken, authTokens.prevToken]);
 
   return (
     <ThemeProvider theme={getThemeFromPallette(pallette)}>
@@ -229,7 +248,7 @@ export default function Root() {
           ))}
         <StyledBubble
           size={64}
-          color="neutral"
+          color={isSocketConnected ? "green" : "neutral"}
           onClick={() => setIsMessagesOpen((value) => !value)}
         >
           <StyledMessageIcon color="neutral" />
