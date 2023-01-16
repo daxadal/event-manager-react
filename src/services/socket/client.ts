@@ -6,29 +6,36 @@ const socket = io(process.env.REACT_APP_SOCKET_URL as string);
 
 export function socketSignIn(sessionToken: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    socket.on("sign-in-ok", () => resolve(undefined));
-    socket.on("sign-in-error", () =>
-      reject(new Error("Signed in successfully instead of failing"))
-    );
-    socket.emit("sign-in", sessionToken);
+    socket.emit("sign-in", sessionToken, (response: unknown) => {
+      if (response === "sign-in-ok") resolve();
+      else reject(new Error("Sign in error"));
+    });
   });
 }
 
 export function socketSignOut(sessionToken: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    socket.on("sign-out-ok", () => resolve(undefined));
-    socket.on("sign-out-error", () =>
-      reject(new Error("Signed out successfully instead of failing"))
-    );
-
-    socket.emit("sign-out", sessionToken);
+    socket.emit("sign-out", sessionToken, (response: unknown) => {
+      if (response === "sign-out-ok") resolve();
+      else reject(new Error("Sign out error"));
+    });
   });
 }
+
+let reminderListener: ((...args: unknown[]) => void) | undefined;
+
+export function stopListeningReminders() {
+  socket.removeListener("reminder", reminderListener);
+  reminderListener = undefined;
+}
+
 export function listenReminders(callback: (reminder: Reminder) => void) {
-  socket.on("reminder", (reminder) => {
+  if (reminderListener) stopListeningReminders();
+  reminderListener = (reminder) => {
     const parsedReminder = Reminder.parse(reminder);
     callback(parsedReminder);
-  });
+  };
+  socket.on("reminder", reminderListener);
 }
 
 // --------------
