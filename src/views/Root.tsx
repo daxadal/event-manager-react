@@ -192,6 +192,7 @@ export default function Root() {
               text
               onClick={async () => {
                 setIsDrawerOpen(false);
+                await socketSignOut(authTokens.currentToken as string);
                 await signOut();
                 unsetAuthenticationToken();
               }}
