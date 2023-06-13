@@ -1,28 +1,37 @@
 import { useState } from "react";
 
-const TOKEN_SET = "token-set";
-const TOKEN_UNSET = "token-unset";
+const TOKEN_KEY = "authentication-token";
 
-export function useAuthenticationWatcher() {
-  const [isAuthenticated, setAuthenticated] = useState(
-    localStorage.getItem("authenticationToken") !== null
-  );
-
-  window.addEventListener(TOKEN_SET, () => setAuthenticated(true));
-  window.addEventListener(TOKEN_UNSET, () => setAuthenticated(false));
-
-  return isAuthenticated;
-}
+const TOKEN_SET = "authentication-token-set";
+const TOKEN_UNSET = "authentication-token-unset";
 
 export const getAuthenticationToken = (): string | null =>
-  localStorage.getItem("authenticationToken");
+  localStorage.getItem(TOKEN_KEY);
 
 export const setAuthenticationToken = (token: string): void => {
-  localStorage.setItem("authenticationToken", token);
+  localStorage.setItem(TOKEN_KEY, token);
   window.dispatchEvent(new Event(TOKEN_SET));
 };
 
 export const unsetAuthenticationToken = (): void => {
-  localStorage.removeItem("authenticationToken");
+  localStorage.removeItem(TOKEN_KEY);
   window.dispatchEvent(new Event(TOKEN_UNSET));
 };
+
+export function useTokenWatcher() {
+  const [prevToken, setPrevToken] = useState<string | null>(null);
+  const [currentToken, setToken] = useState<string | null>(
+    localStorage.getItem(TOKEN_KEY)
+  );
+
+  window.addEventListener(TOKEN_SET, () => {
+    setPrevToken(currentToken);
+    setToken(getAuthenticationToken());
+  });
+  window.addEventListener(TOKEN_UNSET, () => {
+    setPrevToken(currentToken);
+    setToken(null);
+  });
+
+  return { currentToken, prevToken };
+}

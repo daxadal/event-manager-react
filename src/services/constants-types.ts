@@ -77,3 +77,18 @@ export type UserData = z.infer<typeof UserData>;
 export const MeResponse = z.object({ user: UserData });
 
 // #endregion --- User ---
+
+// #region --- Reminder ---
+
+export const Reminder = z.object({
+  message: z.string(),
+  event: Event,
+  subscription: z.object({
+    subscriptionDate: z.string().transform((d) => new Date(d)),
+    comment: z.string(),
+  }),
+});
+
+export type Reminder = z.infer<typeof Reminder>;
+
+// #endregion --- Reminder ---
