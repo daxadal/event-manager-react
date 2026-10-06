@@ -1,33 +1,35 @@
+import {
+  Toolbar,
+  Divider,
+  Button,
+  InformationModal,
+  ConfirmationModal,
+  Bubble,
+  Message,
+  Drawer,
+  Positions,
+  Color,
+  darkTheme,
+  lightTheme,
+} from "@egarciadececa/react-components";
 import React, { createContext, useEffect, useReducer, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
-import { Link, Outlet } from "react-router-dom";
 
 import GlobalStyle from "../GlobalStyle";
-import { Color, darkTheme, lightTheme } from "../themes";
-
-import Toolbar from "../components/base/Toolbar";
-import Drawer, { Positions } from "../components/base/Drawer";
-import Divider from "../components/base/Divider";
-import Button from "../components/base/Button";
+import { ReactComponent as MessageIcon } from "../assets/message.svg";
+import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 import Avatar from "../components/Avatar";
 import PalletteSelector, { Pallettes } from "../components/PalletteSelector";
-import InformationModal from "../components/InformationModal";
-import ConfirmationModal from "../components/ConfirmationModal";
-import Bubble from "../components/base/Bubble";
-import Message from "../components/base/Message";
-
-import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
-import { ReactComponent as MessageIcon } from "../assets/message.svg";
-
-import { checkEnumExhausted, UserData } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
+import { me, signOut } from "../services/api/routes";
 import {
   unsetAuthenticationToken,
   useAuthenticationWatcher,
 } from "../services/api/token";
-import { me, signOut } from "../services/api/routes";
+import { checkEnumExhausted, UserData } from "../services/constants-types";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
@@ -80,7 +82,7 @@ const StyledMessageIcon = styled(MessageIcon)<{ color: Color }>`
 `;
 
 export const ModalContext = createContext<React.Dispatch<ModalAction>>(
-  () => null
+  () => null,
 );
 
 export default function Root() {
@@ -123,7 +125,7 @@ export default function Root() {
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
 
   // FIXME: Load actual messages
-  const [messages, setMessages] = useState([
+  const [messages /* , setMessages */] = useState([
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",

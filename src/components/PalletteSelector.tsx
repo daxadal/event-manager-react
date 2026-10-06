@@ -1,6 +1,5 @@
+import { Selector } from "@egarciadececa/react-components";
 import React from "react";
-
-import Selector from "./base/Selector";
 
 export enum Pallettes {
   DEFAULT = "default",
@@ -21,7 +20,7 @@ export default function PalletteSelector(props: PalletteSelectorProps) {
       id="themeSelector"
       tagText="Theme: "
       value={value}
-      onChange={onChange}
+      onChange={(v: string) => onChange(v as Pallettes)}
     >
       <option value={Pallettes.DEFAULT}>Default</option>
       <option value={Pallettes.LIGHT}>Light</option>

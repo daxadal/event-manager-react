@@ -1,13 +1,12 @@
+import { Button, Divider, Input } from "@egarciadececa/react-components";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Button from "../components/base/Button";
-import Divider from "../components/base/Divider";
-import Input from "../components/base/Input";
 import { ModalOp } from "../reducers/modal-types";
 import { signUp } from "../services/api/routes";
 import { setAuthenticationToken } from "../services/api/token";
+
 import { ModalContext } from "./Root";
 
 const TitleDiv = styled.div`
@@ -59,10 +58,10 @@ export default function SignUp() {
         setAuthenticationToken(token);
         navigate("/");
       }
-    } catch (error) {
+    } catch (error: any) {
       openModal({
         type: ModalOp.OPEN_ERROR_MODAL,
-        message: error.message || "An error occurred",
+        message: error?.message || "An error occurred",
       });
     }
   }

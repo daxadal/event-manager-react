@@ -47,12 +47,3 @@ Project can be linted using the following command:
 ```bash
 npm run lint
 ```
-
-# Storybook
-
-A [Storybook](https://storybook.js.org/) of the project components can be started using the following command:
-
-```bash
-npm run storybook # Hot-reloads for development
-npm run build-storybook # Minifies for production
-```

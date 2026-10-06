@@ -1,12 +1,12 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-import Root from "../views/Root";
 import ErrorPage from "../views/ErrorView";
-import Home from "../views/Home";
 import EventCreation from "../views/EventCreation";
 import EventDetail from "../views/EventDetail";
 import EventList from "../views/EventList";
+import Home from "../views/Home";
+import Root from "../views/Root";
 import SignIn from "../views/SignIn";
 import SignUp from "../views/SignUp";
 

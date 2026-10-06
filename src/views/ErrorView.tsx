@@ -3,6 +3,7 @@ import { useRouteError } from "react-router-dom";
 
 export default function ErrorView() {
   const error: any = useRouteError();
+  // eslint-disable-next-line no-console
   console.error(error);
 
   return (
