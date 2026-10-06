@@ -1,4 +1,4 @@
-name: ${{ github.repository }} deploy
+name: deploy
 
 on:
   push:
