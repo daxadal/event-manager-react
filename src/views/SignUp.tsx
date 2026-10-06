@@ -1,11 +1,12 @@
+import { Button, Divider, Input } from "@egarciadececa/react-components";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { Button, Divider, Input } from "@egarciadececa/react-components";
 import { ModalOp } from "../reducers/modal-types";
 import { signUp } from "../services/api/routes";
 import { setAuthenticationToken } from "../services/api/token";
+
 import { ModalContext } from "./Root";
 
 const TitleDiv = styled.div`

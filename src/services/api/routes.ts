@@ -1,6 +1,5 @@
 // #region --- Events ---
 
-import { del, get, post, put } from "./http-methods";
 import {
   Event,
   EventData,
@@ -14,6 +13,8 @@ import {
   SubscriptionResponse,
   UserData,
 } from "../constants-types";
+
+import { del, get, post, put } from "./http-methods";
 
 export const getAllEvents = async (): Promise<Event[]> => {
   const response = await get("/events");

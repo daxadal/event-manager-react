@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-
 import {
   Button,
   Divider,
   Input,
   Selector,
 } from "@egarciadececa/react-components";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-import { EventData, EventState } from "../services/constants-types";
-import { createEvent } from "../services/api/routes";
 import { ModalOp } from "../reducers/modal-types";
+import { createEvent } from "../services/api/routes";
+import { EventData, EventState } from "../services/constants-types";
+
 import { ModalContext } from "./Root";
 
 const TitleDiv = styled.div`

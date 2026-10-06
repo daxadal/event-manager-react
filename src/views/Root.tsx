@@ -1,8 +1,3 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import { Normalize } from "styled-normalize";
-import { Link, Outlet } from "react-router-dom";
-
 import {
   Toolbar,
   Divider,
@@ -11,24 +6,28 @@ import {
   ConfirmationModal,
   Bubble,
   Message,
+  Drawer,
+  Positions,
 } from "@egarciadececa/react-components";
+import React, { createContext, useEffect, useReducer, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+import { Normalize } from "styled-normalize";
+
+import GlobalStyle from "../GlobalStyle";
+import { ReactComponent as MessageIcon } from "../assets/message.svg";
+import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 import Avatar from "../components/Avatar";
 import PalletteSelector, { Pallettes } from "../components/PalletteSelector";
-import Drawer, { Positions } from "../components/base/Drawer";
-import { Color, darkTheme, lightTheme } from "../themes";
-import GlobalStyle from "../GlobalStyle";
-
-import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
-import { ReactComponent as MessageIcon } from "../assets/message.svg";
-
-import { checkEnumExhausted, UserData } from "../services/constants-types";
 import modalReducer from "../reducers/modal-reducer";
 import { ModalAction, ModalOp } from "../reducers/modal-types";
+import { me, signOut } from "../services/api/routes";
 import {
   unsetAuthenticationToken,
   useAuthenticationWatcher,
 } from "../services/api/token";
-import { me, signOut } from "../services/api/routes";
+import { checkEnumExhausted, UserData } from "../services/constants-types";
+import { Color, darkTheme, lightTheme } from "../themes";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;

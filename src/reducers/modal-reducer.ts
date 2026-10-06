@@ -1,8 +1,8 @@
+import { ModalType } from "@egarciadececa/react-components";
 import { Reducer } from "react";
 
-import { ModalType } from "../components/InformationModal";
-
 import { checkEnumExhausted } from "../services/constants-types";
+
 import { ModalOp, ModalConfiguration, ModalAction } from "./modal-types";
 
 type ModalInfoOp =

@@ -1,8 +1,9 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import React from "react";
+
+import { EventState } from "../services/constants-types";
 
 import EventCard from "./EventCard";
-import { EventState } from "../services/constants-types";
 
 export default {
   title: "Components/EventCard",
