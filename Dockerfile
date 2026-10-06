@@ -31,7 +31,7 @@ WORKDIR /usr/src/app
 
 ENV NODE_ENV production
 
-COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/build ./build
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json .
 
