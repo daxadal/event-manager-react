@@ -8,6 +8,9 @@ import {
   Message,
   Drawer,
   Positions,
+  Color,
+  darkTheme,
+  lightTheme,
 } from "@egarciadececa/react-components";
 import React, { createContext, useEffect, useReducer, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
@@ -27,7 +30,6 @@ import {
   useAuthenticationWatcher,
 } from "../services/api/token";
 import { checkEnumExhausted, UserData } from "../services/constants-types";
-import { Color, darkTheme, lightTheme } from "../themes";
 
 const AppToolbar = styled(Toolbar)`
   display: flex;
