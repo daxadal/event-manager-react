@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Button from "../components/base/Button";
+import { Button } from "@egarciadececa/react-components";
 import EventCard from "../components/EventCard";
 import { getAllEvents } from "../services/api/routes";
 import { Event } from "../services/constants-types";

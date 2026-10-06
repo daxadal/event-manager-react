@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Button from "../components/base/Button";
-import Divider from "../components/base/Divider";
-import Input from "../components/base/Input";
+import { Button, Divider, Input } from "@egarciadececa/react-components";
 import { ModalOp } from "../reducers/modal-types";
 import { signIn } from "../services/api/routes";
 import { setAuthenticationToken } from "../services/api/token";

@@ -35,9 +35,7 @@ interface ModalCloseConfiguration {
 }
 
 export type ModalConfiguration =
-  | ModalInfoConfiguration
-  | ModalConfirmConfiguration
-  | ModalCloseConfiguration;
+  ModalInfoConfiguration | ModalConfirmConfiguration | ModalCloseConfiguration;
 // #endregion --- Modal Configuration ---
 
 // #region --- Modal Actions ---

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Selector from "./base/Selector";
+import { Selector } from "@egarciadececa/react-components";
 
 export enum Pallettes {
   DEFAULT = "default",

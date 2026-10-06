@@ -3,19 +3,20 @@ import styled, { ThemeProvider } from "styled-components";
 import { Normalize } from "styled-normalize";
 import { Link, Outlet } from "react-router-dom";
 
-import GlobalStyle from "../GlobalStyle";
-import { Color, darkTheme, lightTheme } from "../themes";
-
-import Toolbar from "../components/base/Toolbar";
-import Drawer, { Positions } from "../components/base/Drawer";
-import Divider from "../components/base/Divider";
-import Button from "../components/base/Button";
+import {
+  Toolbar,
+  Divider,
+  Button,
+  InformationModal,
+  ConfirmationModal,
+  Bubble,
+  Message,
+} from "@egarciadececa/react-components";
 import Avatar from "../components/Avatar";
 import PalletteSelector, { Pallettes } from "../components/PalletteSelector";
-import InformationModal from "../components/InformationModal";
-import ConfirmationModal from "../components/ConfirmationModal";
-import Bubble from "../components/base/Bubble";
-import Message from "../components/base/Message";
+import Drawer, { Positions } from "../components/base/Drawer";
+import { Color, darkTheme, lightTheme } from "../themes";
+import GlobalStyle from "../GlobalStyle";
 
 import { ReactComponent as ThreeBarsIcon } from "../assets/three-bars.svg";
 import { ReactComponent as MessageIcon } from "../assets/message.svg";
@@ -80,7 +81,7 @@ const StyledMessageIcon = styled(MessageIcon)<{ color: Color }>`
 `;
 
 export const ModalContext = createContext<React.Dispatch<ModalAction>>(
-  () => null
+  () => null,
 );
 
 export default function Root() {

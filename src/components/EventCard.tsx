@@ -1,6 +1,6 @@
 import React from "react";
 
-import Card from "./base/Card";
+import { Card } from "@egarciadececa/react-components";
 import {
   checkEnumExhausted,
   Event,

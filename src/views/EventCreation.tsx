@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-import Button from "../components/base/Button";
-import Divider from "../components/base/Divider";
-import Input from "../components/base/Input";
-import Selector from "../components/base/Selector";
+import {
+  Button,
+  Divider,
+  Input,
+  Selector,
+} from "@egarciadececa/react-components";
 
 import { EventData, EventState } from "../services/constants-types";
 import { createEvent } from "../services/api/routes";

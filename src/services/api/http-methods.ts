@@ -12,7 +12,7 @@ function hasJsonContent(response: Response) {
 const formatURL = (
   domain: string,
   path: string,
-  qs?: Record<string, unknown>
+  qs?: Record<string, unknown>,
 ) => {
   if (!qs || Object.keys(qs).length === 0) return `${domain}${path}`;
   return `${domain}${path}?${stringify(qs)}`;
@@ -41,7 +41,7 @@ const request = async (req: Request): Promise<unknown> => {
 
 export const get = async (
   path: string,
-  qs?: Record<string, unknown>
+  qs?: Record<string, unknown>,
 ): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path, qs), {
@@ -49,7 +49,7 @@ export const get = async (
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    }),
   );
 
 export const post = (path: string, body?: unknown): Promise<unknown> =>
@@ -60,7 +60,7 @@ export const post = (path: string, body?: unknown): Promise<unknown> =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
+    }),
   );
 
 export const put = (path: string, body?: unknown): Promise<unknown> =>
@@ -71,12 +71,12 @@ export const put = (path: string, body?: unknown): Promise<unknown> =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
+    }),
   );
 
 export const del = async (
   path: string,
-  qs?: Record<string, unknown>
+  qs?: Record<string, unknown>,
 ): Promise<unknown> =>
   request(
     new Request(formatURL(DOMAIN, path, qs), {
@@ -84,7 +84,7 @@ export const del = async (
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    }),
   );
 
 export const delWithBody = (path: string, body?: unknown): Promise<unknown> =>
@@ -95,5 +95,5 @@ export const delWithBody = (path: string, body?: unknown): Promise<unknown> =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
+    }),
   );
