@@ -51,10 +51,10 @@ export default function SignIn() {
         setAuthenticationToken(token);
         navigate("/");
       }
-    } catch (error) {
+    } catch (error: any) {
       openModal({
         type: ModalOp.OPEN_ERROR_MODAL,
-        message: error.message || "An error occurred",
+        message: error?.message || "An error occurred",
       });
     }
   }

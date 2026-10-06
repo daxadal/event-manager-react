@@ -62,10 +62,10 @@ export default function EventCreation() {
           onClose: () => navigate(`/events/${response.id}`),
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       openModal({
         type: ModalOp.OPEN_ERROR_MODAL,
-        message: error.message || "An error occurred",
+        message: error?.message || "An error occurred",
       });
     }
   }
