@@ -9,7 +9,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src --max-warnings 0",
     "lint:fix": "eslint ./src --max-warnings 0 --fix",
-    "prettier": "prettier -w ./src"
+    "prettier": "prettier -w ./src",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@egarciadececa/react-components": "^1.0.1",
