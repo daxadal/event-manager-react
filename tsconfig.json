@@ -4,6 +4,7 @@
     "module": "nodenext",
     "target": "ES2022",
     "lib": ["es6", "dom"],
+    "types": ["node"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
