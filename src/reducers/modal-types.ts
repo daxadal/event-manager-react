@@ -1,4 +1,4 @@
-import { ModalType } from "../components/InformationModal";
+import { ModalType } from "@egarciadececa/react-components";
 
 // #region --- Modal Operations ---
 export enum ModalOp {
