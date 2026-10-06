@@ -13,6 +13,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@egarciadececa/react-components": "^1.0.1",
     "qs": "^6.16.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
