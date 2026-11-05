@@ -14,7 +14,8 @@ A notification will be sent to you via socket 24 hours before the event starts, 
 
 # Availability
 
-_(This server is not currently being served on the Internet)_
+<!-- _(This server is not currently being served on the Internet)_ -->
+- https://event-manager-react.egarciadececa.dev/
 
 # Previous steps
 
