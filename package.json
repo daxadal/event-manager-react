@@ -15,13 +15,13 @@
   },
   "dependencies": {
     "@egarciadececa/react-components": "^1.0.1",
-    "qs": "^6.16.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "react-router-dom": "^7.18.4",
-    "styled-components": "^6.5.3",
+    "qs": "^6.17.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5",
+    "styled-components": "^6.6.0",
     "styled-normalize": "^8.1.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
