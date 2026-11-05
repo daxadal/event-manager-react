@@ -14,7 +14,8 @@ A notification will be sent to you via socket 24 hours before the event starts, 
 
 # Availability
 
-_(This server is not currently being served on the Internet)_
+<!-- _(This server is not currently being served on the Internet)_ -->
+- https://event-manager-react.egarciadececa.dev/
 
 # Previous steps
 
@@ -48,11 +49,9 @@ Project can be linted using the following command:
 npm run lint
 ```
 
-# Storybook
+# CI/CD
 
-A [Storybook](https://storybook.js.org/) of the project components can be started using the following command:
+This project uses GitLab CI/CD to compile, test, and deploy the code. The following variables must be set:
 
-```bash
-npm run storybook # Hot-reloads for development
-npm run build-storybook # Minifies for production
-```
+- **Dotenv**: `DOTENV_JEST` (file) and `DOTENV_PROD` (file) contain `.env` files adapted for jest testing and production deployment respectively
+- **Depoyment**: `DEPLOY_HOST`, `DEPLOY_USER`, and `DEPLOY_SSH_KEY` (file) contain the IP, user and SSH key respectively to connect to the remote server for

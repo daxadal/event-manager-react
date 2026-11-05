@@ -10,7 +10,6 @@ module.exports = {
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:storybook/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -22,6 +21,7 @@ module.exports = {
   },
   plugins: ["react", "react-hooks", "@typescript-eslint", "prettier"],
   rules: {
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-no-bind": [
@@ -41,18 +41,20 @@ module.exports = {
         tsx: "never",
       },
     ],
+    "import/order": [
+      "warn",
+      { "newlines-between": "always", alphabetize: { order: "asc" } },
+    ],
+    "import/prefer-default-export": "off",
     "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
   },
   overrides: [
     {
-      files: ["**/*.stories.*"],
+      files: ["**/*.tsx", "**/*.jsx"],
       rules: {
-        "import/no-anonymous-default-export": "off",
-        "import/no-extraneous-dependencies": "off",
-        "react/function-component-definition": "off",
-        "react/jsx-props-no-spreading": "off",
+        "import/prefer-default-export": "warn",
       },
     },
   ],

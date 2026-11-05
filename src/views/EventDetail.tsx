@@ -1,15 +1,17 @@
+import {
+  Button,
+  Divider,
+  Input,
+  Selector,
+} from "@egarciadececa/react-components";
 import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 
-import Button from "../components/base/Button";
-import Divider from "../components/base/Divider";
-import Input from "../components/base/Input";
-import Selector from "../components/base/Selector";
-
-import { Event, EventData, EventState } from "../services/constants-types";
-import { getEvent, updateEvent } from "../services/api/routes";
 import { ModalOp } from "../reducers/modal-types";
+import { getEvent, updateEvent } from "../services/api/routes";
+import { Event, EventData, EventState } from "../services/constants-types";
+
 import { ModalContext } from "./Root";
 
 const TitleDiv = styled.div`
@@ -81,10 +83,10 @@ export default function EventDetail() {
             message: "Event updated",
           });
         }
-      } catch (error) {
+      } catch (error: any) {
         openModal({
           type: ModalOp.OPEN_ERROR_MODAL,
-          message: error.message || "An error occurred",
+          message: error?.message || "An error occurred",
         });
       }
   }

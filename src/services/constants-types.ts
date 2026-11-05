@@ -26,7 +26,7 @@ export const EventData = z.object({
 
 export type EventData = z.infer<typeof EventData>;
 
-export const Event = EventData.augment({
+export const Event = EventData.extend({
   id: z.string(),
   creatorId: z.string(),
 });

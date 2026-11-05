@@ -1,8 +1,8 @@
+import { ModalType } from "@egarciadececa/react-components";
 import { Reducer } from "react";
 
-import { ModalType } from "../components/InformationModal";
-
 import { checkEnumExhausted } from "../services/constants-types";
+
 import { ModalOp, ModalConfiguration, ModalAction } from "./modal-types";
 
 type ModalInfoOp =
@@ -23,10 +23,7 @@ function getModalType(type: ModalInfoOp) {
   }
 }
 
-const reducer: Reducer<ModalConfiguration, ModalAction> = (
-  prevState,
-  action
-) => {
+const reducer: Reducer<ModalConfiguration, ModalAction> = (_, action) => {
   switch (action.type) {
     case ModalOp.OPEN_SUCCESS_MODAL:
     case ModalOp.OPEN_ERROR_MODAL:

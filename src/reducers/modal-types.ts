@@ -1,4 +1,4 @@
-import { ModalType } from "../components/InformationModal";
+import { ModalType } from "@egarciadececa/react-components";
 
 // #region --- Modal Operations ---
 export enum ModalOp {
@@ -35,9 +35,7 @@ interface ModalCloseConfiguration {
 }
 
 export type ModalConfiguration =
-  | ModalInfoConfiguration
-  | ModalConfirmConfiguration
-  | ModalCloseConfiguration;
+  ModalInfoConfiguration | ModalConfirmConfiguration | ModalCloseConfiguration;
 // #endregion --- Modal Configuration ---
 
 // #region --- Modal Actions ---

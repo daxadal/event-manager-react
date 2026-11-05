@@ -1,0 +1,146 @@
+# #region - Global definition
+default:
+  image: node:22-bullseye-slim
+  interruptible: true
+
+stages:
+  - compile
+  - test
+  - docker-build
+  - deploy
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"' # Run when requested manually
+      when: always
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"' # Run on merge request
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_OPEN_MERGE_REQUESTS' # Avoid duplicated pipelines
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH' # Run on branch push
+      when: always
+    - when: never # Otherwise -> Don't pipeline
+# #endregion - Global definition
+
+# #region - Reusables
+.optional-step:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: on_success
+    - if: "$CI_OPEN_MERGE_REQUESTS"
+      when: on_success
+    - when: manual
+      allow_failure: true
+
+.node-step:
+  image: node:22-bullseye-slim
+  cache:
+    paths:
+      - node_modules/
+      - build/
+
+.docker-step:
+  extends: .optional-step
+  stage: docker-build
+  image: quay.io/buildah/stable
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+# #endregion - Reusables
+
+# #region - Variables
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:latest
+  IMAGE_AMD: $CI_REGISTRY_IMAGE:amd64
+  IMAGE_ARM: $CI_REGISTRY_IMAGE:arm64
+# #endregion - Variables
+
+# #region - Steps
+compile:
+  stage: compile
+  extends: .node-step
+  cache:
+    policy: push
+  script:
+    - echo "@egarciadececa:registry=https://${CI_SERVER_HOST}/api/v4/packages/npm/" > .npmrc
+    - echo "//${CI_SERVER_HOST}/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm ci
+    - npm run tsc
+    - npm run build
+
+lint:
+  stage: test
+  extends: .node-step
+  cache:
+    policy: pull
+  script:
+    - npm run lint
+
+build-amd64:
+  extends: .docker-step
+  tags:
+    - saas-linux-small-amd64
+  script:
+    - buildah build --platform=linux/amd64 -t $IMAGE_AMD .
+    - buildah push $IMAGE_AMD
+
+build-arm64:
+  extends: .docker-step
+  tags:
+    - saas-linux-small-arm64
+  script:
+    - buildah build --platform=linux/arm64 -t $IMAGE_ARM .
+    - buildah push $IMAGE_ARM
+
+build-manifest:
+  extends: .docker-step
+  needs: ["build-arm64", "build-amd64"]
+  script:
+    - buildah manifest create $IMAGE
+    - buildah manifest add $IMAGE docker://$IMAGE_AMD
+    - buildah manifest add $IMAGE docker://$IMAGE_ARM
+    - buildah manifest push --all $IMAGE
+
+pages:
+  extends: .optional-step
+  stage: deploy
+  cache:
+    paths:
+      - node_modules/
+      - build/
+    policy: pull
+  script:
+    - mkdir .public
+    - cp -r build/* .public
+    - rm -rf public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+
+deploy:
+  extends: .optional-step
+  stage: deploy
+  image: alpine:3.20
+  needs: ["build-manifest"]
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval "$(ssh-agent -s)"
+    - chmod 400 "$DEPLOY_SSH_KEY"
+    - ssh-add "$DEPLOY_SSH_KEY"
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+  script:
+    - scp $DOTENV_PROD "$DEPLOY_USER@$DEPLOY_HOST:~/dax-apps/env/$CI_PROJECT_NAME.env"
+    - |
+      printf '%s\n' "$CI_REGISTRY" "$CI_REGISTRY_USER" "$CI_REGISTRY_PASSWORD" "$CI_PROJECT_NAME" |
+        ssh "$DEPLOY_USER@$DEPLOY_HOST" '
+          IFS= read -r CI_REGISTRY &&
+          IFS= read -r CI_REGISTRY_USER &&
+          IFS= read -r CI_REGISTRY_PASSWORD &&
+          IFS= read -r SERVICE &&
+          export CI_REGISTRY CI_REGISTRY_USER CI_REGISTRY_PASSWORD SERVICE &&
+          ~/dax-apps/deploy.sh
+        '
+#endregion - Steps

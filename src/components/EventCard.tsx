@@ -1,12 +1,11 @@
+import { Card, Color } from "@egarciadececa/react-components";
 import React from "react";
 
-import Card from "./base/Card";
 import {
   checkEnumExhausted,
   Event,
   EventState,
 } from "../services/constants-types";
-import { Color } from "../themes";
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString("es-ES", {

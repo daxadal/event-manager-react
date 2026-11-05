@@ -1,0 +1,8 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "cSpell.language": "en-US,en-GB,es-ES"
+}
