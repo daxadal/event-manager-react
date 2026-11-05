@@ -6,8 +6,9 @@
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
-ARG NODE_VERSION=22.21.1
+ARG NODE_VERSION=22.17.0
 
+# region <build>
 FROM node:${NODE_VERSION}-alpine AS build
 WORKDIR /usr/src/app
 
@@ -22,23 +23,20 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 RUN npm run build
-RUN npm prune --production
+RUN npm prune --omit=dev
 # endregion <build>
 
 # region <release>
 FROM node:${NODE_VERSION}-alpine AS release 
 WORKDIR /usr/src/app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 COPY --from=build /usr/src/app/build ./build
-COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json .
 
-RUN mkdir -p logs
-RUN chown -R node:node logs
+RUN npm i -g serve
 
-USER node
-
-EXPOSE 3000
-CMD npm run start:pro
+EXPOSE 8080
+CMD ["npm", "run", "start:pro"]
+# endregion <release>
