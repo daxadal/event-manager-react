@@ -82,7 +82,7 @@ const StyledMessageIcon = styled(MessageIcon)<{ color: Color }>`
 `;
 
 export const ModalContext = createContext<React.Dispatch<ModalAction>>(
-  () => null,
+  () => null
 );
 
 export default function Root() {

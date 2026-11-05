@@ -33,7 +33,7 @@ export const createEvent = async (event: EventData): Promise<Event> => {
 
 export const updateEvent = async (
   id: string,
-  event: EventData,
+  event: EventData
 ): Promise<Event> => {
   const response = await put(`/events/${id}`, event);
   return EventResponse.parse(response).event;
@@ -49,7 +49,7 @@ export const deleteEvent = async (id: string): Promise<void> => {
 
 export const subscribe = async (
   eventId: string,
-  comment?: string,
+  comment?: string
 ): Promise<Subscription> => {
   const response = await post(`/events/${eventId}/subscribe`, { comment });
   return SubscriptionResponse.parse(response).subscription;
