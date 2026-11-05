@@ -23,10 +23,7 @@ function getModalType(type: ModalInfoOp) {
   }
 }
 
-const reducer: Reducer<ModalConfiguration, ModalAction> = (
-  prevState,
-  action
-) => {
+const reducer: Reducer<ModalConfiguration, ModalAction> = (_, action) => {
   switch (action.type) {
     case ModalOp.OPEN_SUCCESS_MODAL:
     case ModalOp.OPEN_ERROR_MODAL:

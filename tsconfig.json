@@ -1,32 +1,47 @@
 {
   "compilerOptions": {
-    "outDir": "build",
+    "incremental": false,
+    "target": "ESNext",
     "module": "nodenext",
-    "target": "ES2022",
-    "lib": ["es6", "dom"],
-    "types": ["node"],
-    "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
     "moduleResolution": "nodenext",
-    "rootDir": "src",
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
+    "rootDir": "./src",
+    "outDir": "./build",
+
+    "strict": true,
     "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "allowJs": true,
+    "checkJs": false,
     "skipLibCheck": true,
-    "strictNullChecks": true
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    "types": ["node"],
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "jsx": "react"
   },
+  "include": ["src"],
   "exclude": [
     "node_modules",
     "build",
     "scripts",
     "acceptance-tests",
     "webpack",
-    "jest",
     "src/setupTests.ts"
   ],
-  "types": [
-    "typePatches"
-  ]
+  "types": ["typePatches"]
 }
