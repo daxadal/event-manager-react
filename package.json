@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --max-warnings 0",
     "lint:fix": "eslint ./src --max-warnings 0 --fix",
     "prettier": "prettier -w ./src",
+    "start": "react-scripts start",
+    "start:pro": "serve -s build -l 8080",
+    "test": "react-scripts test",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
