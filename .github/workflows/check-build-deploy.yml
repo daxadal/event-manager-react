@@ -61,6 +61,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: "Create production dotenv"
+        env:
+          DOTENV_PROD: ${{ secrets.DOTENV_PROD }}
+        run: |
+          printf '%s' "$DOTENV_PROD" > .env
+          test -s .env
+
       - name: "Build and push ${{ matrix.architecture }}"
         uses: docker/build-push-action@v6
         with:
@@ -95,22 +102,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
 
-      - name: "Copy production .env file"
-        env:
-          USER: ${{ secrets.DEPLOY_USER }}
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          NAME: ${{ github.event.repository.name }}
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
-
-          cat > prod.env <<EOF
-          ${{ secrets.DOTENV_PROD }}
-          EOF
-
-          scp prod.env "$USER@$HOST:~/dax-apps/env/$NAME.env"
-
       - name: Deploy on Oracle Linux
         uses: appleboy/ssh-action@v1.2.2
         with:
@@ -119,19 +110,19 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: SERVICE=${{ github.event.repository.name }} ~/dax-apps/deploy.sh
 
-  pages:
-    needs: base-checks
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+  # pages:
+  #   needs: base-checks
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v6
 
-      - name: Install and Build
-        run: |
-          npm ci
-          npm run build
+  #     - name: Install and Build
+  #       run: |
+  #         npm ci
+  #         npm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build
+  #     - name: Deploy
+  #       uses: JamesIves/github-pages-deploy-action@v4
+  #       with:
+  #         folder: build

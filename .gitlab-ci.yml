@@ -82,6 +82,7 @@ build-amd64:
   tags:
     - saas-linux-small-amd64
   script:
+    - cp "$DOTENV_PROD" .env
     - buildah build --platform=linux/amd64 -t $IMAGE_AMD .
     - buildah push $IMAGE_AMD
 
@@ -90,6 +91,7 @@ build-arm64:
   tags:
     - saas-linux-small-arm64
   script:
+    - cp "$DOTENV_PROD" .env
     - buildah build --platform=linux/arm64 -t $IMAGE_ARM .
     - buildah push $IMAGE_ARM
 
@@ -102,22 +104,22 @@ build-manifest:
     - buildah manifest add $IMAGE docker://$IMAGE_ARM
     - buildah manifest push --all $IMAGE
 
-pages:
-  extends: .optional-step
-  stage: deploy
-  cache:
-    paths:
-      - node_modules/
-      - build/
-    policy: pull
-  script:
-    - mkdir .public
-    - cp -r build/* .public
-    - rm -rf public
-    - mv .public public
-  artifacts:
-    paths:
-      - public
+# pages:
+#   extends: .optional-step
+#   stage: deploy
+#   cache:
+#     paths:
+#       - node_modules/
+#       - build/
+#     policy: pull
+#   script:
+#     - mkdir .public
+#     - cp -r build/* .public
+#     - rm -rf public
+#     - mv .public public
+#   artifacts:
+#     paths:
+#       - public
 
 deploy:
   extends: .optional-step
@@ -132,7 +134,6 @@ deploy:
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
     - ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
   script:
-    - scp $DOTENV_PROD "$DEPLOY_USER@$DEPLOY_HOST:~/dax-apps/env/$CI_PROJECT_NAME.env"
     - |
       printf '%s\n' "$CI_REGISTRY" "$CI_REGISTRY_USER" "$CI_REGISTRY_PASSWORD" "$CI_PROJECT_NAME" |
         ssh "$DEPLOY_USER@$DEPLOY_HOST" '
