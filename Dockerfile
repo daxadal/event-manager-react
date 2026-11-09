@@ -22,6 +22,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     npm ci
 
 COPY . .
+RUN test -s .env
 RUN npm run build
 RUN npm prune --omit=dev
 # endregion <build>
