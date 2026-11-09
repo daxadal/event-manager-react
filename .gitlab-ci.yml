@@ -104,22 +104,22 @@ build-manifest:
     - buildah manifest add $IMAGE docker://$IMAGE_ARM
     - buildah manifest push --all $IMAGE
 
-pages:
-  extends: .optional-step
-  stage: deploy
-  cache:
-    paths:
-      - node_modules/
-      - build/
-    policy: pull
-  script:
-    - mkdir .public
-    - cp -r build/* .public
-    - rm -rf public
-    - mv .public public
-  artifacts:
-    paths:
-      - public
+# pages:
+#   extends: .optional-step
+#   stage: deploy
+#   cache:
+#     paths:
+#       - node_modules/
+#       - build/
+#     policy: pull
+#   script:
+#     - mkdir .public
+#     - cp -r build/* .public
+#     - rm -rf public
+#     - mv .public public
+#   artifacts:
+#     paths:
+#       - public
 
 deploy:
   extends: .optional-step
